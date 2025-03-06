@@ -1,4 +1,4 @@
-package ao.multaplus.typeUser.entity;
+package ao.multaplus.typeIdentifier.entity;
 
 import ao.multaplus.model.AbstractModel;
 import ao.multaplus.status.entity.Status;
@@ -14,16 +14,16 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class TypeUsers extends AbstractModel {
+public class TypeIdentifiers extends AbstractModel {
 
     @Column(nullable = false, unique = true)
-    @NotBlank(message = "Enter a Type Genders")
+    @NotBlank(message = "Enter a Type Identifier")
     private String type;
 
     private String description;
 
     @ManyToOne
     @JoinColumn(name = "state_id")
-    @JsonIgnoreProperties("typeUsers")
+    @JsonIgnoreProperties("typeIdentifiers")
     private Status state;
 }

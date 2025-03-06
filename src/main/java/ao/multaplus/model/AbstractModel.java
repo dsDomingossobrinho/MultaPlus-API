@@ -21,11 +21,11 @@ public class AbstractModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @CreatedBy
-    private String createdBy;
-
-    @LastModifiedBy
-    private String updatedBy;
+//    @CreatedBy
+//    private String createdBy;
+//
+//    @LastModifiedBy
+//    private String updatedBy;
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)

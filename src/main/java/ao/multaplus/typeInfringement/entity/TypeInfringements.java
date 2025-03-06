@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 public class TypeInfringements extends AbstractModel {
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     @NotBlank(message = "Enter a Type Infringements")
     private String type;
 

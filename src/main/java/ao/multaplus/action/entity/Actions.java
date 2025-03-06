@@ -1,4 +1,4 @@
-package ao.multaplus.typeUser.entity;
+package ao.multaplus.action.entity;
 
 import ao.multaplus.model.AbstractModel;
 import ao.multaplus.status.entity.Status;
@@ -14,16 +14,16 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class TypeUsers extends AbstractModel {
+public class Actions extends AbstractModel {
 
     @Column(nullable = false, unique = true)
-    @NotBlank(message = "Enter a Type Genders")
-    private String type;
+    @NotBlank(message = "Enter a Action")
+    private String action;
 
     private String description;
 
     @ManyToOne
     @JoinColumn(name = "state_id")
-    @JsonIgnoreProperties("typeUsers")
+    @JsonIgnoreProperties("actions")
     private Status state;
 }

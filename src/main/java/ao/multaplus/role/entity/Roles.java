@@ -1,4 +1,4 @@
-package ao.multaplus.statusPayment.entity;
+package ao.multaplus.role.entity;
 
 import ao.multaplus.model.AbstractModel;
 import jakarta.persistence.Column;
@@ -10,11 +10,11 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class StatusPayment extends AbstractModel {
+public class Roles extends AbstractModel {
 
     @Column(nullable = false, unique = true)
-    @NotBlank(message = "Enter a Status")
-    private String state;
+    @NotBlank(message = "Enter a Roles")
+    private String role;
 
     private String description;
 }

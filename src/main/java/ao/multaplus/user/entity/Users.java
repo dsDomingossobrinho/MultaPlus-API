@@ -1,5 +1,6 @@
 package ao.multaplus.user.entity;
 
+import ao.multaplus.auth.entity.Auth;
 import ao.multaplus.gender.entity.Genders;
 import ao.multaplus.province.entity.Provinces;
 import ao.multaplus.status.entity.Status;
@@ -10,7 +11,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,21 +28,15 @@ public class Users extends AbstractModel {
     @Column(columnDefinition = "timestamp")
     private LocalDate dateBirth;
 
-    @Column(nullable = false, unique = true)
-    @Email(message = "Enter a valid email")
-    @NotBlank(message = "Enter a email")
-    private String email;
-
     @Column(unique = true)
     private String telephone;
-
-    @Column(nullable = false)
-    @NotBlank(message = "Enter a senha")
-    private String password;
 
     private String bi;
 
     private String img;
+
+    @Column(unique = true)
+    private String nIdentification;
 
     @ManyToOne
     @JoinColumn(name = "gender_id")
@@ -63,6 +57,11 @@ public class Users extends AbstractModel {
     @JoinColumn(name = "type_user_id")
     @JsonIgnoreProperties("users")
     private TypeUsers typeUsers;
+
+    @ManyToOne
+    @JoinColumn(name = "login_id")
+    @JsonIgnoreProperties("users")
+    private Auth login;
 
 
 }
