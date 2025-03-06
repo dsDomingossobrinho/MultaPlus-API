@@ -4,6 +4,7 @@ import ao.multaplus.action.entity.Actions;
 import ao.multaplus.model.AbstractModel;
 import ao.multaplus.status.entity.Status;
 import ao.multaplus.typeIdentifier.entity.TypeIdentifiers;
+import ao.multaplus.user.entity.Users;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,6 +22,11 @@ public class Historys extends AbstractModel {
     private Long indentifer;
 
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties("historys")
+    private Users user;
 
     @ManyToOne
     @JoinColumn(name = "action_id")
