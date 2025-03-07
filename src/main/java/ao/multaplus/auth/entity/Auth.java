@@ -12,11 +12,17 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
-public class Auth extends AbstractModel {
+public class Auth extends AbstractModel implements UserDetails {
 
     @Column(nullable = false, unique = true)
     @Email(message = "Enter a valid email")
@@ -36,4 +42,19 @@ public class Auth extends AbstractModel {
     @JoinColumn(name = "role_id")
     @JsonIgnoreProperties("auths")
     private Roles role;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(this.role.getRole().equals("admin")) {
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        }
+        else {
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        }
+    }
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
 }

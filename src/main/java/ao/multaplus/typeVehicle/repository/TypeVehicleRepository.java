@@ -1,4 +1,4 @@
-package ao.multaplus.auth.repository;
+package ao.multaplus.typeVehicle.repository;
 
 import ao.multaplus.auth.entity.Auth;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -6,9 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 
-public interface AuthRepository extends JpaRepository<Auth,Long> {
+public interface TypeVehicleRepository extends JpaRepository<Auth,Long> {
 
-    Optional<Auth> findById(Long id);
+    Optional<Auth> findByid(Long id);
 
-    UserDetails findByEmail(String email);
+    UserDetails findByemail(String email);
 }
