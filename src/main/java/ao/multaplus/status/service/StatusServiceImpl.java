@@ -2,6 +2,7 @@ package ao.multaplus.status.service;
 
 import ao.multaplus.status.entity.Status;
 import ao.multaplus.status.repository.StatusRepository;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ public class StatusServiceImpl implements StatusService {
 
     private final StatusRepository repository;
     @Override
+    @PostConstruct
     public void migration() {
         if (repository.count() == 0) {
             String[] array ={"active", "inactive", "eliminated"};

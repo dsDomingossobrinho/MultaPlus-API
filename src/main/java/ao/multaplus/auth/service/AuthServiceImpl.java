@@ -8,6 +8,7 @@ import ao.multaplus.auth.response.LoginResponse;
 import ao.multaplus.role.service.RoleService;
 import ao.multaplus.security.TokenService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,9 +21,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService,UserDetailsService {
 
+    
     private final AuthRepository authRepository;
+    
     private final RoleService roleService;
-    private final AuthenticationManager authenticationManager;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    
     private final TokenService tokenService;
 
     @Override
@@ -33,7 +39,7 @@ public class AuthServiceImpl implements AuthService,UserDetailsService {
     @Override
     public Auth register(RegisterDto registerDto) {
 
-        if (authRepository.findByEmail(registerDto.email()) == null) {
+        if (authRepository.findByEmail(registerDto.email()) != null) {
             return null;
         }
 

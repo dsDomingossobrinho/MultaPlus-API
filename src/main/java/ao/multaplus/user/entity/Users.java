@@ -31,6 +31,7 @@ public class Users extends AbstractModel {
     @Column(unique = true)
     private String telephone;
 
+    @Column(unique = true)
     private String bi;
 
     private String img;

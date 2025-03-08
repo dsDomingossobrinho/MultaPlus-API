@@ -4,12 +4,13 @@ import ao.multaplus.action.entity.Actions;
 import ao.multaplus.action.repository.ActionRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class ActionServiceImpl implements ActionService {
-
+    
     private final ActionRepository repository;
     @Override
     @PostConstruct
