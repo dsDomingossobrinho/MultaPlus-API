@@ -32,6 +32,26 @@ public class AuthController {
         return new ResponseEntity<>(authService.login(loginDto), HttpStatus.OK);
     }
 
+    @PostMapping("/login-opt")
+    @Operation(summary = "Login", description = "Login To get the OTP code")
+    @ResponseStatus(HttpStatus.OK)
+    public void login(@RequestBody @Valid LoginDto loginDto,
+                      @RequestParam(defaultValue = "true" , required = false) boolean sendOtpByEmail) {a
+        authService.login(loginDto, sendOtpByEmail);
+    }
+    @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
+    @Operation(summary = "Register", description = "Register a new user")
+    public  void register(@RequestBody @Valid RegisterDto loginDto) {
+        authService.register(loginDto);
+    }
+
+    @PostMapping("/login/validate")
+    @Operation(summary = "Login", description = "validate login and get the token")
+    public ResponseEntity<LoginResponse> verifyLogin(@RequestBody @Valid VerifyLoginDto verifyLoginDto ) {
+        return new ResponseEntity<>(authService.validateLogin(verifyLoginDto), HttpStatus.OK);
+    }
+
     @GetMapping
     public String index() {
         return "index";
