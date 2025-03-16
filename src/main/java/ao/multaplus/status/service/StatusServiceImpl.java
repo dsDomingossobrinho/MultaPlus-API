@@ -1,6 +1,6 @@
 package ao.multaplus.status.service;
 
-import ao.multaplus.status.entity.Mensagem;
+import ao.multaplus.status.entity.StatusMensagem;
 import ao.multaplus.status.entity.Status;
 import ao.multaplus.status.repository.StatusRepository;
 import jakarta.annotation.PostConstruct;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StatusServiceImpl implements StatusService {
 
-    private StatusRepository repository;
+
     @Override
     @PostConstruct
     public void migration() {
@@ -32,9 +32,10 @@ public class StatusServiceImpl implements StatusService {
     }
 
     @Autowired
-    public Mensagem sms;
+    public StatusMensagem sms;
 
     @Autowired
+    private StatusRepository repository;
   //  public StatusRepository
 
     //Listar os Estados

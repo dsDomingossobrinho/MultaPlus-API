@@ -3,7 +3,7 @@ package ao.multaplus.status.entity;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Mensagem {
+public class StatusMensagem {
     private String mensagem;
 
     public String getMensagem() {
