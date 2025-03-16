@@ -1,6 +1,8 @@
 package ao.multaplus.auth.controller;
 
 import ao.multaplus.auth.dtos.LoginDto;
+import ao.multaplus.auth.dtos.RegisterDto;
+import ao.multaplus.auth.dtos.VerifyLoginDto;
 import ao.multaplus.auth.response.LoginResponse;
 import ao.multaplus.auth.service.AuthService;
 import ao.multaplus.security.SecurityConfigurations;
