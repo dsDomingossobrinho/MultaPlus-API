@@ -36,7 +36,7 @@ public class AuthController {
     @Operation(summary = "Login", description = "Login To get the OTP code")
     @ResponseStatus(HttpStatus.OK)
     public void login(@RequestBody @Valid LoginDto loginDto,
-                      @RequestParam(defaultValue = "true" , required = false) boolean sendOtpByEmail) {a
+                      @RequestParam(defaultValue = "true" , required = false) boolean sendOtpByEmail) {
         authService.login(loginDto, sendOtpByEmail);
     }
     @PostMapping("/register")
