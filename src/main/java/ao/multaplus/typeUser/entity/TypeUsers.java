@@ -17,7 +17,7 @@ import lombok.Setter;
 public class TypeUsers extends AbstractModel {
 
     @Column(nullable = false, unique = true)
-    @NotBlank(message = "Enter a Type Genders")
+    @NotBlank(message = "Enter a Type user")
     private String type;
 
     private String description;
