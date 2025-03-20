@@ -31,7 +31,7 @@ public class TypeInfrigimentsController {
             @ApiResponse(responseCode = "400", description = "Invalid request")
     })
     @PostMapping
-    public ResponseEntity<TypeInfringementsResponsedtos> create(@RequestBody @Valid TypeInfringementsRequestdtos dto) {
+    public ResponseEntity<TypeInfringementsResponsedtos> create(@RequestBody @Valid TypeInfringementsResponsedtos dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
     }
 

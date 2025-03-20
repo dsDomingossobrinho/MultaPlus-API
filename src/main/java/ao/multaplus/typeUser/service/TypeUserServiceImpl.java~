@@ -1,9 +1,7 @@
 package ao.multaplus.typeUser.service;
 
-import ao.multaplus.state.dtos.StateSenderDto;
 import ao.multaplus.state.entity.Status;
 import ao.multaplus.state.repository.StatusRepository;
-import ao.multaplus.typeUser.dtos.TypeUserUpdateDto;
 import ao.multaplus.typeUser.dtos.TypeUsersDto;
 import ao.multaplus.typeUser.response.TypeUsersResponse;
 import ao.multaplus.typeUser.repository.TypeUserRepository;
@@ -39,12 +37,12 @@ public class TypeUserServiceImpl implements TypeUserService {
     }
 
     @Override
-    public TypeUsersResponse update(Long id, TypeUserUpdateDto request) {
+    public TypeUsersResponse update(Long id, TypeUsersDto request) {
         TypeUsers existingUser = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("TypeUser not found"));
 
-        Status state = statusRepository.findById(request.state().id())
-                .orElse(null);
+        Status state = statusRepository.findById(request.stateId())
+                .orElseThrow(() -> new RuntimeException("Status not found"));
 
         existingUser.setType(request.type());
         existingUser.setDescription(request.description());
@@ -88,7 +86,7 @@ public class TypeUserServiceImpl implements TypeUserService {
                 typeUsers.getId(),
                 typeUsers.getType(),
                 typeUsers.getDescription(),
-                new StateSenderDto(typeUsers.getState().getId())
+                typeUsers.getState()
         );
     }
 

@@ -2,7 +2,7 @@ package ao.multaplus.auth.entity;
 
 import ao.multaplus.model.AbstractModel;
 import ao.multaplus.role.entity.Roles;
-import ao.multaplus.status.entity.Status;
+import ao.multaplus.state.entity.Status;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -1,6 +1,5 @@
 package ao.multaplus.typeUser.repository;
 
-import ao.multaplus.statusPayment.entity.StatusPayment;
 import ao.multaplus.typeUser.entity.TypeUsers;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,15 +1,16 @@
 package ao.multaplus.typeUser.service;
 
-import ao.multaplus.typeUser.dtos.TypeUsersRequestdtos;
-import ao.multaplus.typeUser.dtos.TypeUsersResponsedtos;
+import ao.multaplus.typeUser.dtos.TypeUserUpdateDto;
+import ao.multaplus.typeUser.dtos.TypeUsersDto;
+import ao.multaplus.typeUser.response.TypeUsersResponse;
 
 import java.util.List;
 
 public interface TypeUserService {
-    TypeUsersResponsedtos create(TypeUsersRequestdtos requestdtos);
-    TypeUsersResponsedtos update(Long id,TypeUsersRequestdtos requestdtos);
+    TypeUsersResponse create(TypeUsersDto requestdtos);
+    TypeUsersResponse update(Long id, TypeUserUpdateDto requestdtos);
     void delete(Long id);
-    List<TypeUsersResponsedtos> getAll();
-    TypeUsersResponsedtos getById(Long id);
+    List<TypeUsersResponse> getAll();
+    TypeUsersResponse getById(Long id);
     void migration();
 }

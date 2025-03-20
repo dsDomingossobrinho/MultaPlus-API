@@ -1,10 +1,12 @@
 package ao.multaplus.typeInfringement.dtos;
 
+import ao.multaplus.state.entity.Status;
+
 public record TypeInfringementsResponsedtos(
         Long id,
         String type,
         String description,
         Float price,
-        ao.multaplus.status.entity.Status stateId
+        Status stateId
 ) {
 }

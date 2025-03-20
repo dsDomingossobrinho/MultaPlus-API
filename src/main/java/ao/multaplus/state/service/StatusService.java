@@ -1,4 +1,4 @@
-package ao.multaplus.status.service;
+package ao.multaplus.state.service;
 
 public interface StatusService {
 

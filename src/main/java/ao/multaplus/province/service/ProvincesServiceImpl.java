@@ -1,11 +1,13 @@
 package ao.multaplus.province.service;
 
-import ao.multaplus.province.dtos.ProvincesRequestdtos;
-import ao.multaplus.province.dtos.ProvincesResponsedtos;
+import ao.multaplus.province.dtos.ProviceUpdateDto;
+import ao.multaplus.province.dtos.ProvinceDto;
+import ao.multaplus.province.response.ProvinceResponse;
 import ao.multaplus.province.entity.Provinces;
 import ao.multaplus.province.repository.ProvinceRepository;
-import ao.multaplus.status.entity.Status;
-import ao.multaplus.status.repository.StatusRepository;
+import ao.multaplus.state.dtos.StateSenderDto;
+import ao.multaplus.state.entity.Status;
+import ao.multaplus.state.repository.StatusRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,23 +25,33 @@ public class ProvincesServiceImpl implements ProvincesService {
 
 
     @Override
-    public ProvincesResponsedtos create(ProvincesRequestdtos requestdtos) {
+    public ProvinceResponse create(ProvinceDto requestdtos) {
         if (repository.existsByProvince(requestdtos.province())){
             throw new RuntimeException("Province already exists");
         }
+
+        Status state = statusRepository.findById(1L)
+                .orElse(null);
         Provinces province = new Provinces();
         province.setProvince(requestdtos.province());
+        province.setState(state);
+
         repository.save(province);
         return toResponseDTO(province);
     }
 
     @Override
-    public ProvincesResponsedtos update(Long id, ProvincesRequestdtos requestdtos) {
+    public ProvinceResponse update(Long id, ProviceUpdateDto requestdtos) {
         Provinces existingProvince = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Province not found"));
         if (repository.existsByProvince(requestdtos.province())){
             throw new RuntimeException("Another province with the same name already exists!");
         }
+
+        Status state = statusRepository.findById(requestdtos.state().id())
+                .orElse(null);
+
+        existingProvince.setState(state);
         existingProvince.setProvince(requestdtos.province());
         repository.save(existingProvince);
         return toResponseDTO(existingProvince);
@@ -59,7 +71,7 @@ public class ProvincesServiceImpl implements ProvincesService {
     }
 
     @Override
-    public ProvincesResponsedtos findById(Long id) {
+    public ProvinceResponse findById(Long id) {
         Provinces province = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Province not found"));
 
@@ -67,7 +79,7 @@ public class ProvincesServiceImpl implements ProvincesService {
     }
 
     @Override
-    public List<ProvincesResponsedtos> findAll() {
+    public List<ProvinceResponse> findAll() {
         return repository.findAll().stream()
                 .map(this::toResponseDTO)
                 .toList();
@@ -75,11 +87,11 @@ public class ProvincesServiceImpl implements ProvincesService {
 
 
         //metodo para a response
-    private ProvincesResponsedtos toResponseDTO(Provinces province) {
-        return new ProvincesResponsedtos(
+    private ProvinceResponse toResponseDTO(Provinces province) {
+        return new ProvinceResponse(
                 province.getId(),
                 province.getProvince(),
-                province.getState()
+                new StateSenderDto(province.getState().getId())
         );
     }
     @Override

@@ -1,7 +1,7 @@
 package ao.multaplus.typeInfringement.service;
 
-import ao.multaplus.status.entity.Status;
-import ao.multaplus.status.repository.StatusRepository;
+import ao.multaplus.state.entity.Status;
+import ao.multaplus.state.repository.StatusRepository;
 import ao.multaplus.typeInfringement.dtos.TypeInfringementsRequestdtos;
 import ao.multaplus.typeInfringement.dtos.TypeInfringementsResponsedtos;
 import ao.multaplus.typeInfringement.entity.TypeInfringements;
@@ -24,7 +24,7 @@ public class TypeInfrigimentServiceImpl implements TypeInfrigimentService {
 
     @Override
     public TypeInfringementsResponsedtos create(TypeInfringementsRequestdtos requestdtos) {
-        Status status = statusRepository.findById(requestdtos.statusId())
+        Status status = statusRepository.findById(requestdtos.statusId().getId())
                 .orElseThrow(() -> new EntityNotFoundException("Status not found"));
 
         TypeInfringements infringement = new TypeInfringements();
@@ -52,7 +52,7 @@ public class TypeInfrigimentServiceImpl implements TypeInfrigimentService {
     public TypeInfringementsResponsedtos update(Long id, TypeInfringementsRequestdtos requestdtos) {
         TypeInfringements infringement = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("TypeInfringement not found"));
-        Status status = statusRepository.findById(requestdtos.statusId())
+        Status status = statusRepository.findById(requestdtos.statusId().getId())
                 .orElseThrow(() -> new EntityNotFoundException("Status not found"));
 
         infringement.setType(infringement.getType());

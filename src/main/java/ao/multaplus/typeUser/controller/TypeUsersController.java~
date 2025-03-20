@@ -1,6 +1,5 @@
 package ao.multaplus.typeUser.controller;
 
-import ao.multaplus.typeUser.dtos.TypeUserUpdateDto;
 import ao.multaplus.typeUser.dtos.TypeUsersDto;
 import ao.multaplus.typeUser.response.TypeUsersResponse;
 import ao.multaplus.typeUser.service.TypeUserService;
@@ -57,7 +56,7 @@ public class TypeUsersController {
             @ApiResponse(responseCode = "404", description = "userType not found")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<TypeUsersResponse> update(@PathVariable Long id, @RequestBody @Valid TypeUserUpdateDto request) {
+    public ResponseEntity<TypeUsersResponse> update(@PathVariable Long id, @RequestBody @Valid TypeUsersDto request) {
         return ResponseEntity.ok(typeUsersService.update(id, request));
     }
 

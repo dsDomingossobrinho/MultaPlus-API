@@ -1,5 +1,6 @@
 package ao.multaplus.province.dtos;
-public record ProvincesRequestdtos(
+
+public record ProvinceDto(
          String province
 ) {
 }

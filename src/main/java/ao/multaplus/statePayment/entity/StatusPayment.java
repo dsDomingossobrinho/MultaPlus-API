@@ -1,4 +1,4 @@
-package ao.multaplus.statusPayment.entity;
+package ao.multaplus.statePayment.entity;
 
 import ao.multaplus.model.AbstractModel;
 import jakarta.persistence.Column;
