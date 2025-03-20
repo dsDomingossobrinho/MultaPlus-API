@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
 public class Status extends AbstractModel {
 
     @Column(nullable = false, unique = true)
@@ -17,4 +15,20 @@ public class Status extends AbstractModel {
     private String state;
 
     private String description;
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
