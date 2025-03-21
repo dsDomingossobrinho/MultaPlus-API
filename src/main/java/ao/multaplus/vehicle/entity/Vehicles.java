@@ -2,6 +2,7 @@ package ao.multaplus.vehicle.entity;
 
 import ao.multaplus.model.AbstractModel;
 import ao.multaplus.motorist.entity.Motorists;
+
 import ao.multaplus.state.entity.Status;
 import ao.multaplus.typeVehicle.entity.TypeVehicles;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -9,19 +10,18 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Vehicles extends AbstractModel {
-
-    @Column(nullable = false)
-    @NotBlank(message = "Enter a Registration")
-    private String vehicles;
-
+    private String registration;
+    @Column(nullable = false, unique = true)
+    private String plateNumber;
     @ManyToOne
     @JoinColumn(name = "state_id")
     @JsonIgnoreProperties("vehicles")
