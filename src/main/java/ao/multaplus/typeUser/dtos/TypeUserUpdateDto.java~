@@ -1,0 +1,7 @@
+package ao.multaplus.typeUser.dtos;
+
+public record TypeUserUpdateDto (
+    String type,
+    String description,
+    Long stateId
+) {}
