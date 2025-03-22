@@ -1,5 +1,6 @@
 package ao.multaplus.statusPayment.controller;
 
+import ao.multaplus.statusPayment.dtos.StatusPaymentDTO;
 import ao.multaplus.statusPayment.entity.StatusPayment;
 import ao.multaplus.statusPayment.service.Service;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,42 +11,42 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/statuspayment")
+@RequestMapping("/api/statuspayment")
 public class StatusPaymentController {
 
     @Autowired
     public Service statusPayment;
 
-    @Operation(summary = "Listar", description = "Lista todos os Estados dos pagamentos Registrados", tags = "statuspayment")
-   @ApiResponses(@ApiResponse(responseCode = "200", description = "Dados Listados com Sucesso"))
-    @GetMapping("listar")
+    @Operation(description = "List All StatusPayment", tags = "statuspayment")
+    @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
+    @GetMapping
     public ResponseEntity<?> listar(){
         return statusPayment.listar();
     }
 
-    @Operation(summary = "Listar Por ID", description = "Lista por ID todos os Estados dos pagamentos Registrados", tags = "statuspayment")
-    @ApiResponses(@ApiResponse(responseCode = "200", description = "Busca Realizada Com Sucesso"))
-    @GetMapping("listar/{id}")
+    @Operation(description = "List All StatusPayment By ID", tags = "statuspayment")
+    @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
+    @GetMapping("/{id}")
     public ResponseEntity<?> listarid(@PathVariable long id){
         return statusPayment.buscar(id);
     }
 
-    @Operation(summary = "Cadastrar", description = "Cadastra os Estados dos pagamentos", tags = "statuspayment")
-    @ApiResponses(@ApiResponse(responseCode = "200", description = "Dados Cadastrados com Sucesso"))
-    @PostMapping("/cadastrar")
-    public ResponseEntity<?> cadastrar(@RequestBody StatusPayment state){
+    @Operation(description = "Save New Status", tags = "statuspayment")
+    @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
+    @PostMapping
+    public ResponseEntity<?> cadastrar(@RequestBody StatusPaymentDTO state){
         return statusPayment.cadastrar(state);
     }
 
-    @Operation(summary = "Alterar", description = "Altera Qualquer dado registrado sobre o Estado do pagamento", tags = "statuspayment")
-    @ApiResponses(@ApiResponse(responseCode = "200", description = "Dados Alterados com Sucesso"))
-    @PutMapping("/cadastrar")
-    public ResponseEntity<?> editar(@RequestBody StatusPayment state){
+    @Operation(description = "Update Status", tags = "statuspayment")
+    @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
+    @PutMapping
+    public ResponseEntity<?> editar(@RequestBody StatusPaymentDTO state){
         return statusPayment.editar(state);
     }
 
-    @Operation(summary = "Deletar", description = "Deleta Qualquer Estado do pagamento Registrado", tags = "statuspayment")
-    @ApiResponses(@ApiResponse(responseCode = "200", description = "Dados Deletados com Sucesso"))
+    @Operation(description = "Delete StatusPayment", tags = "statuspayment")
+    @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable long id){
         return statusPayment.deletar(id);
