@@ -17,7 +17,7 @@ import lombok.Setter;
 public class Provinces extends AbstractModel {
 
     @Column(nullable = false)
-    @NotBlank(message = "Enter a Genders")
+    @NotBlank(message = "Enter a Province")
     private String province;
 
     @ManyToOne

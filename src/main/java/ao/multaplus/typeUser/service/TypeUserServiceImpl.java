@@ -8,6 +8,7 @@ import ao.multaplus.typeUser.dtos.TypeUsersDto;
 import ao.multaplus.typeUser.response.TypeUsersResponse;
 import ao.multaplus.typeUser.repository.TypeUserRepository;
 import ao.multaplus.typeUser.entity.TypeUsers;
+import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,6 @@ public class TypeUserServiceImpl implements TypeUserService {
 
         Status state = statusRepository.findById(request.state().id())
                 .orElse(null);
-
         existingUser.setType(request.type());
         existingUser.setDescription(request.description());
         existingUser.setState(state);
@@ -93,6 +93,7 @@ public class TypeUserServiceImpl implements TypeUserService {
     }
 
     @Override
+    @PostConstruct
     public void migration() {
         if (repository.count() == 0) {
             String[] array = {

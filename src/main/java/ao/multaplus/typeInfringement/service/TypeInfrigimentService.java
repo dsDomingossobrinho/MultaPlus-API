@@ -1,16 +1,16 @@
 package ao.multaplus.typeInfringement.service;
 
 
-import ao.multaplus.typeInfringement.dtos.TypeInfringementsRequestdtos;
-import ao.multaplus.typeInfringement.dtos.TypeInfringementsResponsedtos;
+import ao.multaplus.typeInfringement.dtos.TypeInfringementsUpdateDto;
+import ao.multaplus.typeInfringement.response.TypeInfringementsResponse;
 
 import java.util.List;
 
 public interface TypeInfrigimentService {
-    TypeInfringementsResponsedtos create(TypeInfringementsRequestdtos requestdtos);
-    TypeInfringementsResponsedtos findById(Long id);
-    List<TypeInfringementsResponsedtos> findAll();
-    TypeInfringementsResponsedtos update(Long id, TypeInfringementsRequestdtos requestdtos);
+    TypeInfringementsResponse create(TypeInfringementsUpdateDto requestdtos);
+    TypeInfringementsResponse findById(Long id);
+    List<TypeInfringementsResponse> findAll();
+    TypeInfringementsResponse update(Long id, TypeInfringementsUpdateDto requestdtos);
     void delete(Long id);
     void migration();
 }

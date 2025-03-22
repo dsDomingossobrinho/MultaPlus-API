@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TypeInfrigimentsRepository extends JpaRepository<TypeInfringements ,Long> {
-
+    boolean existsByType(String type);
 }
