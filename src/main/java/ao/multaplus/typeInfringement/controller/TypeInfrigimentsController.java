@@ -1,7 +1,7 @@
 package ao.multaplus.typeInfringement.controller;
 
-import ao.multaplus.typeInfringement.dtos.TypeInfringementsResponsedtos;
-import ao.multaplus.typeInfringement.dtos.TypeInfringementsRequestdtos;
+import ao.multaplus.typeInfringement.dtos.TypeInfringementsUpdateDto;
+import ao.multaplus.typeInfringement.response.TypeInfringementsResponse;
 import ao.multaplus.typeInfringement.service.TypeInfrigimentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -31,7 +31,7 @@ public class TypeInfrigimentsController {
             @ApiResponse(responseCode = "400", description = "Invalid request")
     })
     @PostMapping
-    public ResponseEntity<TypeInfringementsResponsedtos> create(@RequestBody @Valid TypeInfringementsRequestdtos dto) {
+    public ResponseEntity<TypeInfringementsResponse> create(@RequestBody @Valid TypeInfringementsUpdateDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(dto));
     }
 
@@ -41,14 +41,14 @@ public class TypeInfrigimentsController {
             @ApiResponse(responseCode = "404", description = "type of infringement not found")
     })
     @GetMapping("/{id}")
-    public ResponseEntity<TypeInfringementsResponsedtos> findById(@PathVariable Long id) {
+    public ResponseEntity<TypeInfringementsResponse> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
 
     @Operation(summary = "List all type infringents", description = "return all type infringements")
     @ApiResponse(responseCode = "200", description = "list of all type infringements successfully")
     @GetMapping
-    public ResponseEntity<List<TypeInfringementsResponsedtos>> findAll() {
+    public ResponseEntity<List<TypeInfringementsResponse>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
 
@@ -58,7 +58,7 @@ public class TypeInfrigimentsController {
             @ApiResponse(responseCode = "404", description = "type of infringement not found")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<TypeInfringementsResponsedtos> update(@PathVariable Long id, @RequestBody @Valid TypeInfringementsRequestdtos dto) {
+    public ResponseEntity<TypeInfringementsResponse> update(@PathVariable Long id, @RequestBody @Valid TypeInfringementsUpdateDto dto) {
         return ResponseEntity.ok(service.update(id, dto));
     }
 
