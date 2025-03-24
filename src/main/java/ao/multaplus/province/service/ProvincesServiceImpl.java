@@ -5,7 +5,7 @@ import ao.multaplus.province.dtos.ProvinceDto;
 import ao.multaplus.province.response.ProvinceResponse;
 import ao.multaplus.province.entity.Provinces;
 import ao.multaplus.province.repository.ProvinceRepository;
-import ao.multaplus.state.dtos.StateSenderDto;
+import ao.multaplus.state.dtos.StateDto;
 import ao.multaplus.state.entity.Status;
 import ao.multaplus.state.repository.StatusRepository;
 import jakarta.annotation.PostConstruct;
@@ -91,7 +91,7 @@ public class ProvincesServiceImpl implements ProvincesService {
         return new ProvinceResponse(
                 province.getId(),
                 province.getProvince(),
-                new StateSenderDto(province.getState().getId())
+                new StateDto(province.getState().getId())
         );
     }
     @Override

@@ -1,5 +1,6 @@
 package ao.multaplus.state.service;
 
+import ao.multaplus.state.dtos.StateSenderDto;
 import ao.multaplus.state.entity.StatusMensagem;
 import ao.multaplus.state.entity.Status;
 import ao.multaplus.state.repository.StatusRepository;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,52 +39,51 @@ public class StatusServiceImpl implements StatusService {
     @Autowired
     private StatusRepository repository;
 
-    //Listar os Estados
+
+    @Override
     public ResponseEntity<?> listar(){
         List<Status> all = repository.findAll();
         return new ResponseEntity<>( all, HttpStatus.OK);
     }
 
-
-    //Deletar Os Estads
-    public ResponseEntity<?> deletar(long id){
-        Status tate = repository.findById(id).get();
-        repository.delete(tate);
-        sms.setMensagem("Estado Alterado Com Sucesso");
-        return new ResponseEntity<>(sms, HttpStatus.OK);
-    }
-
-
-    //Actualizar os Estados
-    public ResponseEntity<?> editar(Status state){
-        if(state.getState().equals("")){
+    @Override
+    public ResponseEntity<?> editar(long id,StateSenderDto state){
+       Optional<Status> status=repository.findById(id);
+       if (status == null){
+           sms.setMensagem("Status não encontrado");
+           return new ResponseEntity<>(sms, HttpStatus.NOT_FOUND);
+       }
+       status.orElseThrow().setState(state.state());
+       status.orElseThrow().setDescription(state.description());
+       Status stat=status.get();
+       if(status.orElseThrow().getState().equals("")){
             sms.setMensagem("O estado não pode estar vazio");
             return new ResponseEntity<>(sms, HttpStatus.BAD_REQUEST);
         }else {
             sms.setMensagem("Seu estado foi Salvo com Sucesso");
-            repository.save(state);
+            repository.save(stat);
             return new ResponseEntity<>(sms, HttpStatus.CREATED);
         }
     }
 
-
-    //Salvar os Estados
-    public ResponseEntity<?> cadastrar(Status state){
-        if(state.getState().equals("")){
+    @Override
+    public ResponseEntity<?> cadastrar(StateSenderDto state){
+        Status status=new Status();
+        status.setState(state.state());
+        status.setDescription(state.description());
+        if(status.getState().equals("")){
             sms.setMensagem("O estado não pode estar vazio");
             return new ResponseEntity<>(sms, HttpStatus.BAD_REQUEST);
         }else {
             sms.setMensagem("Seu estado foi Salvo com Sucesso");
-            repository.save(state);
+            repository.save(status);
             return new ResponseEntity<>(sms, HttpStatus.CREATED);
         }
     }
 
-
-    //Listar Um Estado
-    public ResponseEntity<?> buscar(long id){
-        Status status = repository.findById(id).get();
-
-        return new ResponseEntity<>(status, HttpStatus.OK);
+    @Override
+    public Optional<Status> busca(long id){
+        Optional<Status> status = repository.findById(id);
+        return status;
     }
 }

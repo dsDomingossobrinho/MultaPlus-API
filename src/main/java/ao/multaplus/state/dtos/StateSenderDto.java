@@ -1,6 +1,8 @@
 package ao.multaplus.state.dtos;
 
 public record StateSenderDto(
-        Long id
+       long id,
+        String state,
+       String description
 ) {
 }

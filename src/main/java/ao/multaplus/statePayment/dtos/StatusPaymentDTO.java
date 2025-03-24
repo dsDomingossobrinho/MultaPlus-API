@@ -1,4 +1,4 @@
-package ao.multaplus.statusPayment.dtos;
+package ao.multaplus.statePayment.dtos;
 
 public record StatusPaymentDTO(
         long id,
@@ -7,3 +7,4 @@ public record StatusPaymentDTO(
 ) {
 
 }
+
