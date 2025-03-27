@@ -1,6 +1,6 @@
 package ao.multaplus.typeUser.service;
 
-import ao.multaplus.state.dtos.StateDto;
+import ao.multaplus.state.dtos.StateSenderDto;
 import ao.multaplus.state.entity.Status;
 import ao.multaplus.state.repository.StatusRepository;
 import ao.multaplus.typeUser.dtos.TypeUserUpdateDto;
@@ -88,7 +88,7 @@ public class TypeUserServiceImpl implements TypeUserService {
                 typeUsers.getId(),
                 typeUsers.getType(),
                 typeUsers.getDescription(),
-                new StateDto(typeUsers.getState().getId())
+                new StateSenderDto(typeUsers.getState().getId())
         );
     }
 

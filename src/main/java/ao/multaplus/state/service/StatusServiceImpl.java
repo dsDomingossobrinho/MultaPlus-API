@@ -1,6 +1,7 @@
 package ao.multaplus.state.service;
 
-import ao.multaplus.state.dtos.StateSenderDto;
+import ao.multaplus.state.dtos.StateDto;
+import ao.multaplus.state.dtos.StateSaveDto;
 import ao.multaplus.state.entity.StatusMensagem;
 import ao.multaplus.state.entity.Status;
 import ao.multaplus.state.repository.StatusRepository;
@@ -47,7 +48,7 @@ public class StatusServiceImpl implements StatusService {
     }
 
     @Override
-    public ResponseEntity<?> editar(long id,StateSenderDto state){
+    public ResponseEntity<?> editar(long id, StateSaveDto state){
        Optional<Status> status=repository.findById(id);
        if (status == null){
            sms.setMensagem("Status não encontrado");
@@ -55,6 +56,7 @@ public class StatusServiceImpl implements StatusService {
        }
        status.orElseThrow().setState(state.state());
        status.orElseThrow().setDescription(state.description());
+       status.orElseThrow().setId(id);
        Status stat=status.get();
        if(status.orElseThrow().getState().equals("")){
             sms.setMensagem("O estado não pode estar vazio");
@@ -67,7 +69,7 @@ public class StatusServiceImpl implements StatusService {
     }
 
     @Override
-    public ResponseEntity<?> cadastrar(StateSenderDto state){
+    public ResponseEntity<?> cadastrar(StateSaveDto state){
         Status status=new Status();
         status.setState(state.state());
         status.setDescription(state.description());
@@ -85,5 +87,20 @@ public class StatusServiceImpl implements StatusService {
     public Optional<Status> busca(long id){
         Optional<Status> status = repository.findById(id);
         return status;
+    }
+
+    @Override
+    public ResponseEntity<?> deletar(long id){
+        Optional<Status> status= Optional.of(new Status());
+        status=repository.findById(id);
+        if (status==null){
+            return new ResponseEntity<>("Registro não Encontrado",HttpStatus.OK);
+        }
+        Status status1=new Status();
+        status1.setId(id);
+        status1.setState(status.orElseThrow().getState());
+        status1.setDescription(status.orElseThrow().getDescription());
+       repository.delete(status1);
+        return new ResponseEntity<>("Deletado com sucesso",HttpStatus.OK);
     }
 }

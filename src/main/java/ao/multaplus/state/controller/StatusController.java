@@ -1,6 +1,7 @@
 package ao.multaplus.state.controller;
 
-import ao.multaplus.state.dtos.StateSenderDto;
+import ao.multaplus.state.dtos.StateDto;
+import ao.multaplus.state.dtos.StateSaveDto;
 import ao.multaplus.state.entity.Status;
 import ao.multaplus.state.service.StatusServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,14 +23,14 @@ public class StatusController {
 
     @Operation(description = "List All Status", tags = "status")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @GetMapping
+    @GetMapping("/listar")
     public ResponseEntity<?> listar(){
         return statusService.listar();
     }
 
     @Operation(description = "List Status By ID", tags = "status")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @GetMapping("/{id}")
+    @GetMapping("/listar/{id}")
     public Optional<Status> listbyid(@PathVariable long id){
         return statusService.busca(id);
     }
@@ -37,16 +38,23 @@ public class StatusController {
 
     @Operation(description = "Save New Status", tags = "status")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @PostMapping
-    public ResponseEntity<?> cadastrar(@RequestBody StateSenderDto state){
+    @PostMapping("/cadastrar")
+    public ResponseEntity<?> cadastrar(@RequestBody StateSaveDto state){
         return statusService.cadastrar(state);
     }
 
     @Operation(description = "Update Status", tags = "status")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @PutMapping("/{id}")
-    public ResponseEntity<?> editar(@PathVariable long id,@RequestBody StateSenderDto state){
+    @PutMapping("/editar/{id}")
+    public ResponseEntity<?> editar(@PathVariable long id,@RequestBody StateSaveDto state){
         return statusService.editar(id,state);
+    }
+
+    @Operation(description = "Update Status", tags = "status")
+    @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity<?> deletar(@PathVariable long id){
+        return statusService.deletar(id);
     }
 
 }

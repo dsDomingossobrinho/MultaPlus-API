@@ -1,9 +1,11 @@
 package ao.multaplus.typeUser.response;
 
+import ao.multaplus.state.dtos.StateSenderDto;
+
 public record TypeUsersResponse(
         Long id,
         String type,
         String description,
-        ao.multaplus.state.dtos.StateDto state
+        StateSenderDto state
 ) {
 }

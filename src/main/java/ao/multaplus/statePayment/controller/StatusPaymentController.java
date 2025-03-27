@@ -1,6 +1,7 @@
 package ao.multaplus.statePayment.controller;
 
 import ao.multaplus.statePayment.dtos.StatusPaymentDTO;
+import ao.multaplus.statePayment.dtos.StatusPaymentSaveDTO;
 import ao.multaplus.statePayment.entity.StatusPayment;
 import ao.multaplus.statePayment.service.Service;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,14 +35,14 @@ public class StatusPaymentController {
     @Operation(description = "Save New Status", tags = "statuspayment")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
     @PostMapping
-    public ResponseEntity<?> cadastrar(@RequestBody StatusPaymentDTO state){
+    public ResponseEntity<?> cadastrar(@RequestBody StatusPaymentSaveDTO state){
         return statusPayment.cadastrar(state);
     }
 
     @Operation(description = "Update Status", tags = "statuspayment")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
     @PutMapping("/{id}")
-    public ResponseEntity<?> editar(@PathVariable long id,@RequestBody StatusPaymentDTO state){
+    public ResponseEntity<?> editar(@PathVariable long id, @RequestBody StatusPaymentSaveDTO state){
         return statusPayment.editar(id,state);
     }
 

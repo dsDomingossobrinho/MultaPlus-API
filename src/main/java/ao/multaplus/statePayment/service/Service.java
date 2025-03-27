@@ -1,6 +1,7 @@
 package ao.multaplus.statePayment.service;
 
 import ao.multaplus.statePayment.dtos.StatusPaymentDTO;
+import ao.multaplus.statePayment.dtos.StatusPaymentSaveDTO;
 import ao.multaplus.statePayment.entity.Mensagem;
 import ao.multaplus.statePayment.entity.StatusPayment;
 import ao.multaplus.statePayment.repository.StatusPaymentRepository;
@@ -37,12 +38,13 @@ public class Service implements StatusPaymentService{
 
 
     @Override
-    public ResponseEntity<?> editar(long id,StatusPaymentDTO state){
+    public ResponseEntity<?> editar(long id,StatusPaymentSaveDTO state){
         StatusPayment stat= statusPayment.findById(id);
         if (stat == null){
             sms.setmensagem("Status-Payment not Found");
             return new ResponseEntity<>(sms, HttpStatus.NOT_FOUND);
         }
+        stat.setId(id);
         stat.setState(state.state());
         stat.setDescription(state.description());
         if(stat.getState().equals("")){
@@ -56,7 +58,7 @@ public class Service implements StatusPaymentService{
     }
 
     @Override
-    public ResponseEntity<?> cadastrar(StatusPaymentDTO state){
+    public ResponseEntity<?> cadastrar(StatusPaymentSaveDTO state){
         StatusPayment status=new StatusPayment();
         status.setState(state.state());
         status.setDescription(state.description());
