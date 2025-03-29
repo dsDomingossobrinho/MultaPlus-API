@@ -22,36 +22,36 @@ public class TypeIdentifierController {
 
     @Operation(description = "List All typeidentifier", tags = "typeidentifier")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @GetMapping("/listar")
-    public ResponseEntity<?> listar(){
-        return identifierService.lista();
+    @GetMapping("/list")
+    public ResponseEntity<?> list(){
+        return identifierService.list();
     }
 
     @Operation(description = "Find a typeidentifier", tags = "typeidentifier")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @GetMapping("/listar/{id}")
-    public TipeIdentifierDto buscar(@PathVariable long id){
-        return identifierService.busca(id);
+    @GetMapping("/list/{id}")
+    public TipeIdentifierDto listbyid(@PathVariable long id){
+        return identifierService.findone(id);
     }
 
     @Operation(description = "Save typeidentifier", tags = "typeidentifier")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @PostMapping("/cadastrar")
-    public ResponseEntity<?> cadastrar(@RequestBody TipeidentifierSaveDTO saveDTO){
-        return identifierService.cadastra(saveDTO);
+    @PostMapping("/save")
+    public ResponseEntity<?> save(@RequestBody TipeidentifierSaveDTO saveDTO){
+        return identifierService.save(saveDTO);
     }
 
     @Operation(description = "Edit typeidentifier", tags = "typeidentifier")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @PutMapping("/editar/{id}")
-    public ResponseEntity<?> editar(@PathVariable long id,@RequestBody TipeidentifierSaveDTO saveDTO){
-        return identifierService.edita(id,saveDTO);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(@PathVariable long id,@RequestBody TipeidentifierSaveDTO saveDTO){
+        return identifierService.update(id,saveDTO);
     }
 
     @Operation(description = "Delete typeidentifier", tags = "typeidentifier")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<?> deletar(@PathVariable long id){
-      return identifierService.deleta(id);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable long id){
+      return identifierService.delete(id);
     }
 }

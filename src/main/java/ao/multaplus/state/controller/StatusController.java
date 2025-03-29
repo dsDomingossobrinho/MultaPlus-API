@@ -23,38 +23,38 @@ public class StatusController {
 
     @Operation(description = "List All Status", tags = "status")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @GetMapping("/listar")
-    public ResponseEntity<?> listar(){
-        return statusService.listar();
+    @GetMapping("/list")
+    public ResponseEntity<?> list(){
+        return statusService.list();
     }
 
     @Operation(description = "List Status By ID", tags = "status")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @GetMapping("/listar/{id}")
+    @GetMapping("/list/{id}")
     public Optional<Status> listbyid(@PathVariable long id){
-        return statusService.busca(id);
+        return statusService.findone(id);
     }
 
 
     @Operation(description = "Save New Status", tags = "status")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @PostMapping("/cadastrar")
-    public ResponseEntity<?> cadastrar(@RequestBody StateSaveDto state){
-        return statusService.cadastrar(state);
+    @PostMapping("/save")
+    public ResponseEntity<?> save(@RequestBody StateSaveDto state){
+        return statusService.save(state);
     }
 
     @Operation(description = "Update Status", tags = "status")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @PutMapping("/editar/{id}")
-    public ResponseEntity<?> editar(@PathVariable long id,@RequestBody StateSaveDto state){
-        return statusService.editar(id,state);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(@PathVariable long id,@RequestBody StateSaveDto state){
+        return statusService.update(id,state);
     }
 
     @Operation(description = "Update Status", tags = "status")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<?> deletar(@PathVariable long id){
-        return statusService.deletar(id);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable long id){
+        return statusService.delete(id);
     }
 
 }

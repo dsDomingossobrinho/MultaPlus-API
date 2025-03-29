@@ -5,13 +5,13 @@ import ao.multaplus.statePayment.dtos.StatusPaymentSaveDTO;
 import org.springframework.http.ResponseEntity;
 
 public interface StatusPaymentService {
-    public ResponseEntity<?> listar();
+    ResponseEntity<?> list();
 
-    public ResponseEntity<?> deletar(long id);
+    ResponseEntity<?> delete(long id);
 
-    public ResponseEntity<?> editar(long id, StatusPaymentSaveDTO state);
+    ResponseEntity<?> update(long id, StatusPaymentSaveDTO state);
 
-    public ResponseEntity<?> cadastrar(StatusPaymentSaveDTO state);
+    ResponseEntity<?> save(StatusPaymentSaveDTO state);
 
-    public ResponseEntity<?> buscar(long id);
+    ResponseEntity<?> findone(long id);
 }

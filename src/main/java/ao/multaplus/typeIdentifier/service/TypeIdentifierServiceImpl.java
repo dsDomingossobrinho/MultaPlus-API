@@ -16,17 +16,17 @@ public class TypeIdentifierServiceImpl implements TypeIdentifierService{
     }
 
     @Override
-    public ResponseEntity<?> lista() {
+    public ResponseEntity<?> list() {
         return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
     }
 
     @Override
-    public TipeIdentifierDto busca(long id) {
+    public TipeIdentifierDto findone(long id) {
         return repository.findById(id);
     }
 
     @Override
-    public ResponseEntity<?> cadastra(TipeidentifierSaveDTO saveDTO) {
+    public ResponseEntity<?> save(TipeidentifierSaveDTO saveDTO) {
         TypeIdentifiers identifiers=new TypeIdentifiers();
         identifiers.setType(saveDTO.type());
         identifiers.setDescription(saveDTO.description());
@@ -35,7 +35,7 @@ public class TypeIdentifierServiceImpl implements TypeIdentifierService{
     }
 
     @Override
-    public ResponseEntity<?> edita(long id, TipeidentifierSaveDTO saveDTO) {
+    public ResponseEntity<?> update(long id, TipeidentifierSaveDTO saveDTO) {
         TipeIdentifierDto tipeIdentifierDto=repository.findById(id);
         if (tipeIdentifierDto== null){
             return new ResponseEntity<>("Type Identifier not found",HttpStatus.NOT_FOUND);
@@ -53,16 +53,16 @@ public class TypeIdentifierServiceImpl implements TypeIdentifierService{
     }
 
     @Override
-    public ResponseEntity<?> deleta(long id) {
+    public ResponseEntity<?> delete(long id) {
         TipeIdentifierDto typeIdentifiers=repository.findById(id);
         if (typeIdentifiers==null){
-            return new ResponseEntity<>("Registro não encontrado",HttpStatus.OK);
+            return new ResponseEntity<>("Not found",HttpStatus.OK);
         }
         TypeIdentifiers identifiers=new TypeIdentifiers();
         identifiers.setId(id);
         identifiers.setType(typeIdentifiers.type());
         identifiers.setDescription(typeIdentifiers.description());
         repository.delete(identifiers);
-        return new ResponseEntity<>("Deletado com Sucesso",HttpStatus.OK);
+        return new ResponseEntity<>("Deleted with success",HttpStatus.OK);
     }
 }

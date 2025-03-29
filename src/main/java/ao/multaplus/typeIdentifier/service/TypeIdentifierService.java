@@ -5,9 +5,9 @@ import ao.multaplus.typeIdentifier.dtos.TipeidentifierSaveDTO;
 import org.springframework.http.ResponseEntity;
 
 public interface TypeIdentifierService {
-    public ResponseEntity<?> lista();
-    public TipeIdentifierDto busca(long id);
-    public ResponseEntity<?> cadastra(TipeidentifierSaveDTO saveDTO);
-    public ResponseEntity<?> edita(long id,TipeidentifierSaveDTO saveDTO);
-    public ResponseEntity<?> deleta(long id);
+    ResponseEntity<?> list();
+    TipeIdentifierDto findone(long id);
+    ResponseEntity<?> save(TipeidentifierSaveDTO saveDTO);
+    ResponseEntity<?> update(long id,TipeidentifierSaveDTO saveDTO);
+    ResponseEntity<?> delete(long id);
 }

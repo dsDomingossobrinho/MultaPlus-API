@@ -35,22 +35,22 @@ public class GenderServiceImpl implements GenderService {
     }
 
     @Override
-    public ResponseEntity<?> cadastra(GenderDto gender) {
+    public ResponseEntity<?> save(GenderDto gender) {
         if (gender==null){
-            return new ResponseEntity<>("Os campos têm que ser preenchidos",HttpStatus.OK);
+            return new ResponseEntity<>("Cannot be empty",HttpStatus.OK);
         }
         Genders genders=new Genders();
         genders.setGender(gender.gender());
-        return new ResponseEntity<>(genderRepository.save(genders),HttpStatus.CREATED) ;
+        return new ResponseEntity<>("Saved with success",HttpStatus.CREATED) ;
     }
 
     @Override
-    public ResponseEntity<List<Genders>> lista() {
+    public ResponseEntity<List<Genders>> list() {
         return new ResponseEntity<>(genderRepository.findAll(), HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<?> edita(long id, GenderDto genders) {
+    public ResponseEntity<?> update(long id, GenderDto genders) {
         Optional<Genders> gender= Optional.of(new Genders());
         gender=genderRepository.findById(id);
         Genders ge=new Genders();
@@ -58,24 +58,24 @@ public class GenderServiceImpl implements GenderService {
         ge.setId(id);
         gender.orElseThrow().setGender(genders.gender());
         genderRepository.save(ge);
-        return new ResponseEntity<>("Dados Editado com sucesso",HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("Updated with success",HttpStatus.ACCEPTED);
     }
 
     @Override
-    public ResponseEntity<?> deleta(long id) {
+    public ResponseEntity<?> delete(long id) {
         Optional<Genders> genders=genderRepository.findById(id);
         if (genders==null){
-            return new ResponseEntity<>("Registro não encontrado",HttpStatus.OK);
+            return new ResponseEntity<>("Not Found",HttpStatus.NOT_FOUND);
         }
         Genders genders1=new Genders();
         genders1.setId(id);
         genders1.setGender(genders.orElseThrow().getGender());
         genderRepository.delete(genders1);
-        return new ResponseEntity<>("Deletado com sucesso",HttpStatus.OK);
+        return new ResponseEntity<>("Deleted with success",HttpStatus.OK);
     }
 
     @Override
-    public Optional<Genders> busca(long id) {
+    public Optional<Genders> findone(long id) {
         return genderRepository.findById(id);
     }
 }

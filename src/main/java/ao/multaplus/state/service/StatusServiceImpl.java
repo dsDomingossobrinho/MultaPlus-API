@@ -42,16 +42,16 @@ public class StatusServiceImpl implements StatusService {
 
 
     @Override
-    public ResponseEntity<?> listar(){
+    public ResponseEntity<?> list(){
         List<Status> all = repository.findAll();
         return new ResponseEntity<>( all, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<?> editar(long id, StateSaveDto state){
+    public ResponseEntity<?> update(long id, StateSaveDto state){
        Optional<Status> status=repository.findById(id);
        if (status == null){
-           sms.setMensagem("Status não encontrado");
+           sms.setMensagem("State cannot be empty");
            return new ResponseEntity<>(sms, HttpStatus.NOT_FOUND);
        }
        status.orElseThrow().setState(state.state());
@@ -59,48 +59,48 @@ public class StatusServiceImpl implements StatusService {
        status.orElseThrow().setId(id);
        Status stat=status.get();
        if(status.orElseThrow().getState().equals("")){
-            sms.setMensagem("O estado não pode estar vazio");
+            sms.setMensagem("State Cannot be empty");
             return new ResponseEntity<>(sms, HttpStatus.BAD_REQUEST);
         }else {
-            sms.setMensagem("Seu estado foi Salvo com Sucesso");
+            sms.setMensagem("Updated with success");
             repository.save(stat);
             return new ResponseEntity<>(sms, HttpStatus.CREATED);
         }
     }
 
     @Override
-    public ResponseEntity<?> cadastrar(StateSaveDto state){
+    public ResponseEntity<?> save(StateSaveDto state){
         Status status=new Status();
         status.setState(state.state());
         status.setDescription(state.description());
         if(status.getState().equals("")){
-            sms.setMensagem("O estado não pode estar vazio");
+            sms.setMensagem("Cannot be empty");
             return new ResponseEntity<>(sms, HttpStatus.BAD_REQUEST);
         }else {
-            sms.setMensagem("Seu estado foi Salvo com Sucesso");
+            sms.setMensagem("Saved with success");
             repository.save(status);
             return new ResponseEntity<>(sms, HttpStatus.CREATED);
         }
     }
 
     @Override
-    public Optional<Status> busca(long id){
+    public Optional<Status> findone(long id){
         Optional<Status> status = repository.findById(id);
         return status;
     }
 
     @Override
-    public ResponseEntity<?> deletar(long id){
+    public ResponseEntity<?> delete(long id){
         Optional<Status> status= Optional.of(new Status());
         status=repository.findById(id);
         if (status==null){
-            return new ResponseEntity<>("Registro não Encontrado",HttpStatus.OK);
+            return new ResponseEntity<>("Not found",HttpStatus.OK);
         }
         Status status1=new Status();
         status1.setId(id);
         status1.setState(status.orElseThrow().getState());
         status1.setDescription(status.orElseThrow().getDescription());
        repository.delete(status1);
-        return new ResponseEntity<>("Deletado com sucesso",HttpStatus.OK);
+        return new ResponseEntity<>("Deleted with success",HttpStatus.OK);
     }
 }

@@ -22,36 +22,36 @@ public class GenderController {
 
     @Operation(description = "List All gender", tags = "gender")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @GetMapping("/listar")
-    public ResponseEntity<?> listar(GenderDtoList genderDtoList){
-        return genderService.lista();
+    @GetMapping("/list")
+    public ResponseEntity<?> list(GenderDtoList genderDtoList){
+        return genderService.list();
     }
 
     @Operation(description = "Find a gender", tags = "gender")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @GetMapping("/listar/{id}")
+    @GetMapping("/list/{id}")
     public Optional<Genders> buscar(@PathVariable long id){
-        return genderService.busca(id);
+        return genderService.findone(id);
     }
 
     @Operation(description = "Save a gender", tags = "gender")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @PostMapping("/cadastrar")
-    public ResponseEntity<?> cadastrar(@RequestBody GenderDto genderDto){
-        return genderService.cadastra(genderDto);
+    @PostMapping("/save")
+    public ResponseEntity<?> save(@RequestBody GenderDto genderDto){
+        return genderService.save(genderDto);
     }
 
     @Operation(description = "Delete a gender", tags = "gender")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<?> deletar(@PathVariable long id){
-        return genderService.deleta(id);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable long id){
+        return genderService.delete(id);
     }
 
     @Operation(description = "Edit a gender", tags = "gender")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @PutMapping("/editar/{id}")
-    public ResponseEntity<?> editar(@PathVariable long id,@RequestBody GenderDto genderDtoList){
-        return genderService.edita(id,genderDtoList);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(@PathVariable long id,@RequestBody GenderDto genderDtoList){
+        return genderService.update(id,genderDtoList);
     }
 }

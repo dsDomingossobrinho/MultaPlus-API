@@ -11,9 +11,9 @@ import java.util.Optional;
 public interface GenderService {
     public void migrate();
 
-    public ResponseEntity<?> cadastra(GenderDto gender);
-    public ResponseEntity<List<Genders>> lista();
-    public ResponseEntity<?> edita(long id, GenderDto genders);
-    public ResponseEntity<?> deleta(long id);
-    public Optional<Genders> busca(long id);
+    ResponseEntity<?> save(GenderDto gender);
+    ResponseEntity<List<Genders>> list();
+    ResponseEntity<?> update(long id, GenderDto genders);
+    ResponseEntity<?> delete(long id);
+    Optional<Genders> findone(long id);
 }

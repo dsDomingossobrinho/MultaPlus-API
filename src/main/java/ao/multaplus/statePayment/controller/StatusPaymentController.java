@@ -20,36 +20,36 @@ public class StatusPaymentController {
 
     @Operation(description = "List All StatusPayment", tags = "statuspayment")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @GetMapping
-    public ResponseEntity<?> listar(){
-        return statusPayment.listar();
+    @GetMapping("/list")
+    public ResponseEntity<?> list(){
+        return statusPayment.list();
     }
 
     @Operation(description = "List All StatusPayment By ID", tags = "statuspayment")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @GetMapping("/{id}")
-    public ResponseEntity<?> listarid(@PathVariable long id){
-        return statusPayment.buscar(id);
+    @GetMapping("/list/{id}")
+    public ResponseEntity<?> listbyid(@PathVariable long id){
+        return statusPayment.findone(id);
     }
 
     @Operation(description = "Save New Status", tags = "statuspayment")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @PostMapping
-    public ResponseEntity<?> cadastrar(@RequestBody StatusPaymentSaveDTO state){
-        return statusPayment.cadastrar(state);
+    @PostMapping("/save")
+    public ResponseEntity<?> save(@RequestBody StatusPaymentSaveDTO state){
+        return statusPayment.save(state);
     }
 
     @Operation(description = "Update Status", tags = "statuspayment")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @PutMapping("/{id}")
-    public ResponseEntity<?> editar(@PathVariable long id, @RequestBody StatusPaymentSaveDTO state){
-        return statusPayment.editar(id,state);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(@PathVariable long id, @RequestBody StatusPaymentSaveDTO state){
+        return statusPayment.update(id,state);
     }
 
     @Operation(description = "Delete StatusPayment", tags = "statuspayment")
     @ApiResponses(@ApiResponse(responseCode = "200", description = "Success"))
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletar(@PathVariable long id){
-        return statusPayment.deletar(id);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable long id){
+        return statusPayment.delete(id);
     }
 }

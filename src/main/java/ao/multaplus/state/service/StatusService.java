@@ -12,12 +12,12 @@ public interface StatusService {
 
     void migration();
 
-    public ResponseEntity<?> listar();
+    ResponseEntity<?> list();
 
-    public ResponseEntity<?> editar(long id, StateSaveDto state);
+    ResponseEntity<?> update(long id, StateSaveDto state);
 
-    public ResponseEntity<?> cadastrar(StateSaveDto state);
+    ResponseEntity<?> save(StateSaveDto state);
 
-    public Optional<Status> busca(long id);
-    public ResponseEntity<?> deletar(long id);
+    Optional<Status> findone(long id);
+    ResponseEntity<?> delete(long id);
 }
