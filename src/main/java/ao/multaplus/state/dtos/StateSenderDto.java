@@ -1,6 +1,4 @@
 package ao.multaplus.state.dtos;
 
-public record StateSenderDto(
-        Long id
-) {
+public record StateSenderDto(long id) {
 }
