@@ -1,5 +1,7 @@
 package ao.multaplus.statePayment.service;
 
+import ao.multaplus.statePayment.dtos.StatusPaymentDTO;
+import ao.multaplus.statePayment.dtos.StatusPaymentSaveDTO;
 import ao.multaplus.statePayment.entity.Mensagem;
 import ao.multaplus.statePayment.entity.StatusPayment;
 import ao.multaplus.statePayment.repository.StatusPaymentRepository;
@@ -10,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 @org.springframework.stereotype.Service
-public class Service {
+public class Service implements StatusPaymentService{
 
     @Autowired
     private Mensagem sms;
@@ -19,49 +21,60 @@ public class Service {
     private StatusPaymentRepository statusPayment;
 
 
-    public ResponseEntity<?> listar(){
+    @Override
+    public ResponseEntity<?> list(){
         List<StatusPayment> all = statusPayment.findAll();
         return new ResponseEntity<>( all, HttpStatus.OK);
     }
 
 
-
-    public ResponseEntity<?> deletar(long id){
+    @Override
+    public ResponseEntity<?> delete(long id){
         StatusPayment tate = statusPayment.findById(id);
         statusPayment.delete(tate);
-        sms.setmensagem("Estado do Pagamento Deletado Com Sucesso");
+        sms.setmensagem("Status-Payment deleted with success");
         return new ResponseEntity<>(sms, HttpStatus.OK);
     }
 
 
-
-    public ResponseEntity<?> editar(StatusPayment state){
-        if(state.getClass().equals("")){
-            sms.setmensagem("O estado não pode estar vazio");
+    @Override
+    public ResponseEntity<?> update(long id,StatusPaymentSaveDTO state){
+        StatusPayment stat= statusPayment.findById(id);
+        if (stat == null){
+            sms.setmensagem("Status-Payment not Found");
+            return new ResponseEntity<>(sms, HttpStatus.NOT_FOUND);
+        }
+        stat.setId(id);
+        stat.setState(state.state());
+        stat.setDescription(state.description());
+        if(stat.getState().equals("")){
+            sms.setmensagem("Status-Payment cannot be empty");
             return new ResponseEntity<>(sms, HttpStatus.BAD_REQUEST);
         }else {
-            sms.setmensagem("Seu estado foi Salvo com Sucesso");
-            statusPayment.save(state);
+            sms.setmensagem("Updated with success");
+            statusPayment.save(stat);
             return new ResponseEntity<>(sms, HttpStatus.CREATED);
         }
     }
 
-
-    public ResponseEntity<?> cadastrar(StatusPayment state){
-        if(state.getClass().equals("")){
-            sms.setmensagem("O estado não pode estar vazio");
+    @Override
+    public ResponseEntity<?> save(StatusPaymentSaveDTO state){
+        StatusPayment status=new StatusPayment();
+        status.setState(state.state());
+        status.setDescription(state.description());
+        if(status.getState().equals("")){
+            sms.setmensagem("Status-Payment Cannot be empty");
             return new ResponseEntity<>(sms, HttpStatus.BAD_REQUEST);
         }else {
-            sms.setmensagem("Seu estado foi Salvo com Sucesso");
-            statusPayment.save(state);
+            sms.setmensagem("Saved with success");
+            statusPayment.save(status);
             return new ResponseEntity<>(sms, HttpStatus.CREATED);
         }
     }
 
-
-    public ResponseEntity<?> buscar(long id){
+    @Override
+    public ResponseEntity<?> findone(long id){
         StatusPayment status = statusPayment.findById(id);
-
         return new ResponseEntity<>(status, HttpStatus.OK);
     }
 }
