@@ -2,6 +2,7 @@ package ao.multaplus.fine.entity;
 
 import ao.multaplus.model.AbstractModel;
 import ao.multaplus.motorist.entity.Motorists;
+import ao.multaplus.motoristVehicle.entity.MotoristVehicles;
 import ao.multaplus.state.entity.Status;
 import ao.multaplus.user.entity.Users;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -24,9 +25,9 @@ public class Fines extends AbstractModel {
     private Users users;
 
     @ManyToOne
-    @JoinColumn(name = "motorist_id")
+    @JoinColumn(name = "motorist_vehicle_id")
     @JsonIgnoreProperties("fines")
-    private Motorists motorist;
+    private MotoristVehicles motoristVehicles;
 
     @ManyToOne
     @JoinColumn(name = "state_id")
