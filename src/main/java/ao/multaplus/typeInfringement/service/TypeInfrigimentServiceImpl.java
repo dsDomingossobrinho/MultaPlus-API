@@ -151,46 +151,38 @@ public class TypeInfrigimentServiceImpl implements TypeInfrigimentService {
    public void migration() {
        if (repository.count() == 0) {
            String[] types = {
-                   "Speeding",
-                   "Parking in prohibited areas",
-                   "Driving without a license",
-                   "Running a red light",
-                   "Failure to comply with internal regulations",
-                   "Misuse of company resources",
-                   "Non-compliance with deadlines",
-                   "Improper waste disposal",
-                   "Pollution of water bodies",
-                   "Illegal deforestation",
-                   "Tax evasion",
-                   "Failure to issue invoices",
-                   "False or incomplete declarations",
-                   "Public disorder",
-                   "Minor theft",
-                   "Light assaults"
+                   "Aceleração",
+                   "Estacionamento em áreas proibidas",
+                    "Dirigir sem carteira",
+                   "Passando um sinal vermelho",
+                   "Incumprimento dos regulamentos internos",
+                   "Uso indevido de recursos da empresa",
+                   "Não cumprimento de prazos",
+                   "Evasão fiscal",
+                   "Falha na emissão de faturas",
+                   "Declarações falsas ou incompletas",
+                    "Desordem pública"
            };
            String[] descriptions = {
-                   "Exceeding the speed limit",
-                   "Parking vehicles in prohibited areas",
-                   "Driving a vehicle without a valid license",
-                   "Failing to stop at a red traffic light",
-                   "Violating internal organizational rules",
-                   "Misusing resources for personal purposes",
-                   "Missing established deadlines",
-                   "Disposing of waste improperly",
-                   "Contaminating rivers, lakes, or other water bodies",
-                   "Clearing forests without authorization",
-                   "Avoiding taxes by falsifying or omitting financial information",
-                   "Not issuing required invoices in commercial transactions",
-                   "Providing false or incomplete information in legal documents",
-                   "Causing public disturbances or disorder",
-                   "Committing minor thefts of property",
-                   "Engaging in light physical assaults without serious injury"
+                   "Excedendo o limite de velocidade",
+                   "Estacionar veículos em áreas proibidas",
+                   "Conduzir veículo sem carta válida",
+                    "Não conseguir parar num semáforo vermelho",
+                   "Violação de regras organizacionais internas",
+                   "Uso indevido de recursos para fins pessoais",
+                   "Faltando prazos estabelecidos",
+                   "Evitar impostos falsificando ou omitindo informações financeiras",
+                   "Fornecimento de informações falsas ou incompletas em documentos legais",
+                    "Causando distúrbios ou desordem pública"
+
            };
+           float [] price={26400,26400,105600,52000,2365,2300,45000,56321};
 
            for (int i = 0; i < types.length; i++) {
                TypeInfringements infringement = new TypeInfringements();
                infringement.setType(types[i]);
                infringement.setDescription(descriptions[i]);
+               infringement.setPrice(price[i]);
                repository.save(infringement);
            }
        }
@@ -205,4 +197,6 @@ public class TypeInfrigimentServiceImpl implements TypeInfrigimentService {
                 new StateSenderDto(infringement.getState().getId())
         );
     }
+
+
 }

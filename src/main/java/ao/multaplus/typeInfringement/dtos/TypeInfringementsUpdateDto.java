@@ -6,7 +6,7 @@ public record TypeInfringementsUpdateDto(
         Long id,
         String type,
         String description,
-        Long price,
+        float price,
         StateSenderDto state
 ) {
 }
