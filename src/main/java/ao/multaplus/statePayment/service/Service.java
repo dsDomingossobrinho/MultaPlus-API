@@ -5,7 +5,9 @@ import ao.multaplus.statePayment.dtos.StatusPaymentSaveDTO;
 import ao.multaplus.statePayment.entity.Mensagem;
 import ao.multaplus.statePayment.entity.StatusPayment;
 import ao.multaplus.statePayment.repository.StatusPaymentRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -18,8 +20,26 @@ public class Service implements StatusPaymentService{
     private Mensagem sms;
 
     @Autowired
-    private StatusPaymentRepository statusPayment;
+    private final StatusPaymentRepository statusPayment;
+    public Service(StatusPaymentRepository statusPayment) {
+        this.statusPayment = statusPayment;
+    }
 
+
+    @Override
+    @PostConstruct
+    public void migration() {
+        if (statusPayment.count()==0){
+            String[] statuspayments={"Pago","Por Pagar","Fora do Prazo"};
+
+            for (int i=0;i<statuspayments.length;i++){
+                StatusPayment statusPayment1=new StatusPayment();
+                statusPayment1.setState(statuspayments[i]);
+
+                statusPayment.save(statusPayment1);
+            }
+        }
+    }
 
     @Override
     public ResponseEntity<?> list(){
