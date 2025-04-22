@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -231,6 +232,13 @@ public class TypeInfrigimentServiceImpl implements TypeInfrigimentService {
          }
      }
   }
+
+    @Override
+    public Float getPrice(Long id) {
+       Optional<TypeInfringements> typeInfringements=repository.findById(id);
+       Float price=typeInfringements.orElseThrow().getPrice();
+        return price;
+    }
 
     private TypeInfringementsResponse toDto(TypeInfringements infringement) {
         return new TypeInfringementsResponse(

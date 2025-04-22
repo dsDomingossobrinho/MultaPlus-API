@@ -13,4 +13,5 @@ public interface TypeInfrigimentService {
     TypeInfringementsResponse update(Long id, TypeInfringementsUpdateDto requestdtos);
     void delete(Long id);
     void migration();
+    Float getPrice(Long id);
 }

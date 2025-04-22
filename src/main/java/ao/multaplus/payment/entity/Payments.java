@@ -31,7 +31,5 @@ public class Payments extends AbstractModel {
     @JsonIgnoreProperties("payments")
     private Fines fine;
 
-    private Float price;
-
-
+    private float price;
 }

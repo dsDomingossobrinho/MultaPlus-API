@@ -5,6 +5,7 @@ import ao.multaplus.statePayment.dtos.StatusPaymentSaveDTO;
 import org.springframework.http.ResponseEntity;
 
 public interface StatusPaymentService {
+    void migration();
     ResponseEntity<?> list();
 
     ResponseEntity<?> delete(long id);
