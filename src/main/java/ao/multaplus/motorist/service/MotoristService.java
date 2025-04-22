@@ -3,6 +3,8 @@ package ao.multaplus.motorist.service;
 import ao.multaplus.motorist.dtos.MotoristDto;
 import ao.multaplus.motorist.entity.Motorists;
 
+import java.util.Optional;
+
 public interface MotoristService {
     /**
      * Register a new motorist
@@ -16,5 +18,6 @@ public interface MotoristService {
     void updateMotorist(String motoristIdentifier, MotoristDto motoristDto);
 
     void deleteMotorist(String motoristIdentifier);
+    Optional<Motorists> getBi(String Bi);
 
 }

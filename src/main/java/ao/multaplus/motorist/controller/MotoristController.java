@@ -3,9 +3,12 @@ package ao.multaplus.motorist.controller;
 import ao.multaplus.motorist.dtos.MotoristDto;
 import ao.multaplus.motorist.entity.Motorists;
 import ao.multaplus.motorist.service.MotoristServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/motorist")
@@ -33,5 +36,10 @@ public class MotoristController {
     @DeleteMapping("/{motoristIdentifier}")
     public void deleteMotorist(@PathVariable String motoristIdentifier) {
         motoristService.deleteMotorist(motoristIdentifier);
+    }
+    @Operation(summary="verify if B.I motorists exists and retorn, motorists dates")
+    @GetMapping("/verify/{Bi}")
+    public Optional<Motorists> getBi(@PathVariable String Bi){
+        return motoristService.getBi(Bi);
     }
 }
