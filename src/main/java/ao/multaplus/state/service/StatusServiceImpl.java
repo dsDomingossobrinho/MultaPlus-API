@@ -103,4 +103,12 @@ public class StatusServiceImpl implements StatusService {
        repository.delete(status1);
         return new ResponseEntity<>("Deleted with success",HttpStatus.OK);
     }
+
+    @Override
+    public Status getStatus(long id) {
+        return   repository.findById(id).orElseThrow(()->{
+            throw new RuntimeException("status " +
+                    "not found");
+        });
+    }
 }
