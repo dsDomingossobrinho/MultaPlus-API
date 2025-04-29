@@ -16,24 +16,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TypeVehicleServiceImpl implements TypeVehiclesService {
     private final TypeVehicleRepository typeVehicleRepository;
-    private final StatusRepository statusRepository;
+    private final StatusService statusService;
 
     @Override
     @Transactional
     public TypeVehicles addTypeVehicles(VehiclesTypeDto typeVehicles) {
-        Status status = getStatus(1L);
         try {
             TypeVehicles typeVehiclesEntity = TypeVehicles.builder()
                     .type(typeVehicles.type())
                     .description(typeVehicles.description())
-                    .state(status)
+                    .state(statusService.getStatus(1L))
                     .build();
             return typeVehicleRepository.save(typeVehiclesEntity);
-        }
-        catch (DataIntegrityViolationException ex){
+        } catch (DataIntegrityViolationException ex) {
             throw new RuntimeException("Category  type already exists");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Error to save Type Vehicles");
         }
@@ -59,7 +56,8 @@ public class TypeVehicleServiceImpl implements TypeVehiclesService {
                     }
                     if (typeVehicles.statusId() != null && !typeVehicles.statusId().equals(
                             typeVehiclesEntity.getState().getId())) {
-                            typeVehiclesEntity.setState(getStatus(typeVehicles.statusId()));
+                        typeVehiclesEntity.setState(
+                                statusService.getStatus(typeVehicles.statusId()));
                         updated = true;
                     }
                     if (updated) {
@@ -77,10 +75,10 @@ public class TypeVehicleServiceImpl implements TypeVehiclesService {
     public void deleteTypeVehicles(Long typeVehiclesIdentifiers) {
         typeVehicleRepository.findById(typeVehiclesIdentifiers).ifPresentOrElse(
                 typeVehiclesEntity -> {
-                    if(typeVehiclesEntity.getState().getId() == 3L){
+                    if (typeVehiclesEntity.getState().getId() == 3L) {
                         throw new RuntimeException("Type Vehicles already deleted");
                     }
-                    typeVehiclesEntity.setState(getStatus(3L));
+                    typeVehiclesEntity.setState(statusService.getStatus(3L));
                     typeVehicleRepository.save(typeVehiclesEntity);
                 },
                 () -> {
@@ -104,18 +102,15 @@ public class TypeVehicleServiceImpl implements TypeVehiclesService {
     @PostConstruct
     public void migration() {
         if (typeVehicleRepository.count() == 0) {
-            String[] types ={"Car", "Motorcycle", "Truck"};
+            String[] types = {"Car", "Motorcycle", "Truck"};
             for (String type : types) {
                 TypeVehicles typeVehicles = new TypeVehicles();
                 typeVehicles.setType(type);
                 typeVehicles.setDescription("Type of vehicle: " + type);
-                typeVehicles.setState(getStatus(1L));
+                typeVehicles.setState(statusService.getStatus(1L));
                 typeVehicleRepository.save(typeVehicles);
             }
         }
     }
-    private Status getStatus(Long statusId) {
-        return statusRepository.findById(statusId).orElseThrow(
-                () -> new RuntimeException("Status not found"));
-    }
+
 }
