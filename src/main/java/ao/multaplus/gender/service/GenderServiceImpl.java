@@ -81,6 +81,7 @@ public class GenderServiceImpl implements GenderService {
 
     @Override
     public Genders getGender(Long id) {
-        return genderRepository.findById(id).orElseThrow(()->{throw new RuntimeException("gender not found");});
+        return genderRepository.findById(id).orElseThrow(()-> new RuntimeException(
+                "gender not found"));
     }
 }
