@@ -16,4 +16,6 @@ public interface GenderService {
     ResponseEntity<?> update(long id, GenderDto genders);
     ResponseEntity<?> delete(long id);
     Optional<Genders> findone(long id);
+
+    Genders getGender(Long id);
 }
