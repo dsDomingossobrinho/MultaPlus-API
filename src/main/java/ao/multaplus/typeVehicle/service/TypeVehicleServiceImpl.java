@@ -1,7 +1,6 @@
 package ao.multaplus.typeVehicle.service;
 
-import ao.multaplus.state.entity.Status;
-import ao.multaplus.state.repository.StatusRepository;
+import ao.multaplus.state.service.StatusService;
 import ao.multaplus.typeVehicle.dtos.VehiclesTypeDto;
 import ao.multaplus.typeVehicle.entity.TypeVehicles;
 import ao.multaplus.typeVehicle.repository.TypeVehicleRepository;
