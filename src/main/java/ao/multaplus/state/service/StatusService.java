@@ -20,4 +20,5 @@ public interface StatusService {
 
     Optional<Status> findone(long id);
     ResponseEntity<?> delete(long id);
+    Status getStatus(long id);
 }
