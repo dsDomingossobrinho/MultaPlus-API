@@ -25,28 +25,16 @@ public class InfringementServiceImpl implements InfringementService {
     private final StatusServiceImpl  statusService;
 
     @Override
-    public TypeInfringementsResponse create(TypeInfringementsUpdateDto requestdtos) {
-
-        // Verifica se o tipo de infração já existe no repositório
-        if (repository.existsByType(requestdtos.type())) {
-            throw new RuntimeException("Infringement type already exists");
-        }
-
-        // Cria um novo objeto TypeInfringements
-        TypeInfringements infringement = new TypeInfringements();
-
-        // Busca o estado padrão
-        Status state = statusRepository.findById(1L)
-                .orElseThrow(() -> new RuntimeException("Default state not found"));
-
-        // Define os valores no objeto de infração
-        infringement.setType(requestdtos.type());
-        infringement.setDescription(requestdtos.description());
-        infringement.setPrice(Float.valueOf(requestdtos.price()));
-        infringement.setState(state);
-
-        // Salva a infração no repositório e retorna como DTO
-        return toDto(repository.save(infringement));
+    public TypeInfringementsResponse create(InfringementsUpdateDto infringementsDetails) {
+        checkIfExists(infringementsDetails.name());
+        Status state = statusService.getStatus(1L);
+        Infringements infringement = Infringements.builder()
+                .name(infringementsDetails.name())
+                .price(infringementsDetails.price())
+                .description(infringementsDetails.description())
+                .state(state)
+                .build();
+        return toDto(infringementsRepository.save(infringement));
     }
 
     @Override
