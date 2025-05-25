@@ -20,11 +20,9 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class TypeInfrigimentServiceImpl implements TypeInfrigimentService {
-    @Autowired
-   private final TypeInfrigimentsRepository repository;
-    @Autowired
-    private final StatusRepository statusRepository;
+public class InfringementServiceImpl implements InfringementService {
+   private final InfringementsRepository infringementsRepository;
+    private final StatusServiceImpl  statusService;
 
     @Override
     public TypeInfringementsResponse create(TypeInfringementsUpdateDto requestdtos) {
