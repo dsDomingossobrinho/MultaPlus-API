@@ -21,7 +21,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Auth extends AbstractModel implements UserDetails {
