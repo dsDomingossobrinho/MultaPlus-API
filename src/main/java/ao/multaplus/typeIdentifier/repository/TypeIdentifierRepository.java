@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TypeIdentifierRepository extends JpaRepository<TypeIdentifiers,String> {
+public interface TypeIdentifierRepository extends JpaRepository<TypeIdentifiers,Long> {
 
     TipeIdentifierDto findById(long id);
 

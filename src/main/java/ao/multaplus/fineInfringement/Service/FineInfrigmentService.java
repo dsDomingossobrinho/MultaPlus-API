@@ -1,4 +1,4 @@
-package ao.multaplus.fineInfringement.Service;
+package ao.multaplus.fineInfringement.service;
 
 import ao.multaplus.fineInfringement.entity.FineInfringements;
 import ao.multaplus.infringement.entity.Infringements;
