@@ -14,7 +14,7 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 public class TypeVehicles extends AbstractModel {
