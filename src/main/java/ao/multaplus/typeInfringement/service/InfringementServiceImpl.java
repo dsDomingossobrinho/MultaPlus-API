@@ -39,8 +39,7 @@ public class InfringementServiceImpl implements InfringementService {
 
     @Override
     public TypeInfringementsResponse findById(Long id) {
-        TypeInfringements infringement = repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("TypeInfringement not found"));
+        Infringements infringement = getInfringement(id);
         return toDto(infringement);
     }
 
