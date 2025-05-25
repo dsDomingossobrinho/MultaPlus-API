@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicles, Long> {
     @Query("SELECT v FROM Vehicles v WHERE v.plateNumber " + "=:vehicleIdentifier OR v" +
-            ".registration = :vehicleIdentifier OR v.motorist.bi= :vehicleIdentifier")
+            ".registration = :vehicleIdentifier ")
     Optional<Vehicles> findVehicles(@Param("vehicleIdentifier") String vehicleIdentifier);
 
 
