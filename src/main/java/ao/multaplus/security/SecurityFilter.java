@@ -37,8 +37,9 @@ public class SecurityFilter extends OncePerRequestFilter {
 
     private String recoverToken(HttpServletRequest request) {
         var authHeader = request.getHeader("Authorization");
-        System.out.println(authHeader+"www");
-        if(authHeader == null) return null;
+
+        if(authHeader == null)
+            throw new SecurityException("Token de autenticação não encontrado ou inválido.");
         return authHeader.replace("Bearer ", "");
     }
 }
