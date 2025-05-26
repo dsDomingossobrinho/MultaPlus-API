@@ -14,13 +14,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("type-vehicle")
-@Tag(name = "Vehicle type", description = "Vehicle Type endpoints")
+@Tag(name = "Vehicle name", description = "Vehicle Type endpoints")
 @RequiredArgsConstructor
 public class VehicleTypeController {
     private final TypeVehicleServiceImpl typeVehicleService;
 
     @PostMapping
-    @Operation(summary = "Register vehicle type", description = "Register vehicle type")
+    @Operation(summary = "Register vehicle name", description = "Register vehicle name")
     public ResponseEntity<TypeVehicles> registerVehicleType(
             @RequestBody VehiclesTypeDto VehiclesTypeDto) {
          return ResponseEntity.status(HttpStatus.CREATED).body(typeVehicleService.addTypeVehicles(VehiclesTypeDto));
@@ -28,14 +28,14 @@ public class VehicleTypeController {
 
     @DeleteMapping("{typeVehiclesIdentifiers}")
     @ResponseStatus(HttpStatus.OK)
-    @Operation(summary = "Delete vehicle type", description = "Delete vehicle type")
+    @Operation(summary = "Delete vehicle name", description = "Delete vehicle name")
     public void deleteVehicleType(@PathVariable long typeVehiclesIdentifiers) {
         typeVehicleService.deleteTypeVehicles(typeVehiclesIdentifiers);
     }
 
     @PutMapping("{typeVehiclesIdentifiers}")
     @ResponseStatus(HttpStatus.OK)
-    @Operation(summary = "Update vehicle type", description = "Update vehicle type")
+    @Operation(summary = "Update vehicle name", description = "Update vehicle name")
     public void updateVehicleType(@PathVariable long typeVehiclesIdentifiers,
                                   @RequestBody VehiclesTypeDto VehiclesTypeDto) {
         typeVehicleService.updateTypeVehicles(typeVehiclesIdentifiers,
@@ -44,7 +44,7 @@ public class VehicleTypeController {
 
     @GetMapping("{typeVehiclesIdentifiers}")
     @ResponseStatus(HttpStatus.OK)
-    @Operation(summary = "Get vehicle type", description = "Get vehicle type")
+    @Operation(summary = "Get vehicle name", description = "Get vehicle name")
     public TypeVehicles getVehicleType(@PathVariable long typeVehiclesIdentifiers) {
         return typeVehicleService.getTypeVehicles(typeVehiclesIdentifiers);
     }

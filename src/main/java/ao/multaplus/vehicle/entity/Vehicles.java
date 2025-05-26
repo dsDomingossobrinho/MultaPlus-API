@@ -11,11 +11,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Vehicles extends AbstractModel {
@@ -26,14 +27,10 @@ public class Vehicles extends AbstractModel {
     @JoinColumn(name = "state_id")
     @JsonIgnoreProperties("vehicles")
     private Status state;
-
+    private String color;
+    private String brand;
     @ManyToOne
     @JoinColumn(name = "type_vehicle_id")
     @JsonIgnoreProperties("vehicles")
     private TypeVehicles typeVehicles;
-
-    @ManyToOne
-    @JoinColumn(name = "motorist_id")
-    @JsonIgnoreProperties("vehicles")
-    private Motorists motorist;
 }
