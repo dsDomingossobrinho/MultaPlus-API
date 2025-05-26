@@ -18,7 +18,6 @@ public interface AuthService {
         try {
 
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            System.out.println("dddddddddddddddddddd"+principal);
             return ((Auth) principal).getUsers();
 
         } catch (Exception e) {
