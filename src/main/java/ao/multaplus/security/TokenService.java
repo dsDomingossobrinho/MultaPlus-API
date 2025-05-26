@@ -21,7 +21,7 @@ public class TokenService {
             String token = JWT.create()
                     .withIssuer("auth-api")
                     .withSubject(auth.getEmail())
-                    .withExpiresAt(new Date(System.currentTimeMillis()* 90000))
+                    .withExpiresAt(Instant.now().plusSeconds(3600))
                     .sign(algorithm);
             return token;
         }catch (JWTCreationException e) {
