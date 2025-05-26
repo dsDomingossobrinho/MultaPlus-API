@@ -16,10 +16,8 @@ public interface AuthService {
     LoginResponse validateLogin(VerifyLoginDto verifyLoginDto);
     default  Users currentUser() {
         try {
-
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             return ((Auth) principal).getUsers();
-
         } catch (Exception e) {
             throw new SecurityException("Usuário não autenticado ou contexto inválido.", e);
         }
