@@ -39,7 +39,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         var authHeader = request.getHeader("Authorization");
 
         if(authHeader == null)
-            throw new SecurityException("Token de autenticação não encontrado ou inválido.");
+             return  null;
         return authHeader.replace("Bearer ", "");
     }
 }
