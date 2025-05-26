@@ -3,14 +3,13 @@ package ao.multaplus.auth.entity;
 import ao.multaplus.model.AbstractModel;
 import ao.multaplus.role.entity.Roles;
 import ao.multaplus.state.entity.Status;
+import ao.multaplus.user.entity.Users;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,7 +20,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Auth extends AbstractModel implements UserDetails {
@@ -46,7 +45,9 @@ public class Auth extends AbstractModel implements UserDetails {
     @JoinColumn(name = "role_id")
     @JsonIgnoreProperties("auths")
     private Roles role;
-
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "users_id")
+    private Users users;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(this.role.getRole().equals("admin")) {

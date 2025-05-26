@@ -8,6 +8,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.Date;
 
 @Service
@@ -21,7 +22,7 @@ public class TokenService {
             String token = JWT.create()
                     .withIssuer("auth-api")
                     .withSubject(auth.getEmail())
-                    .withExpiresAt(new Date(System.currentTimeMillis() + 60000))
+                    .withExpiresAt(Instant.now().plusSeconds(3600))
                     .sign(algorithm);
             return token;
         }catch (JWTCreationException e) {
@@ -38,7 +39,8 @@ public class TokenService {
                     .verify(token)
                     .getSubject();
         }catch (JWTVerificationException e) {
-            return "";
+            e.printStackTrace();
+            throw new SecurityException("Token invalido ou expirado");
         }
     }
 }
