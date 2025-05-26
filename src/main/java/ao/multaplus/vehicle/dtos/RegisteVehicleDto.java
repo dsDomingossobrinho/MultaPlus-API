@@ -1,9 +1,10 @@
 package ao.multaplus.vehicle.dtos;
 
 public record RegisteVehicleDto(
-    String registration,
+    String color,
+    String brand,
     String plateNumber,
     Long vehicleTypeId,
-    String bi
+    String registration
 ) {
 }

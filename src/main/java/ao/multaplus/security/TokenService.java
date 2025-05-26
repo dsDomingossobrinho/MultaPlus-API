@@ -21,7 +21,7 @@ public class TokenService {
             String token = JWT.create()
                     .withIssuer("auth-api")
                     .withSubject(auth.getEmail())
-                    .withExpiresAt(new Date(System.currentTimeMillis() + 60000))
+                    .withExpiresAt(new Date(System.currentTimeMillis()* 90000))
                     .sign(algorithm);
             return token;
         }catch (JWTCreationException e) {
@@ -38,7 +38,8 @@ public class TokenService {
                     .verify(token)
                     .getSubject();
         }catch (JWTVerificationException e) {
-            return "";
+            e.printStackTrace();
+            throw new SecurityException("Token invalido ou expirado");
         }
     }
 }
