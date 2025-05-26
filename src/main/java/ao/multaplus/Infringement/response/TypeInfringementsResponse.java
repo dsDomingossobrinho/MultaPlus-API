@@ -1,4 +1,4 @@
-package ao.multaplus.typeInfringement.response;
+package ao.multaplus.Infringement.response;
 
 import ao.multaplus.state.dtos.StateSenderDto;
 
