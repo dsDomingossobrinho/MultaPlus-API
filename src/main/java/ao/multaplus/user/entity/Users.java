@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -56,10 +57,9 @@ public class Users extends AbstractModel {
     @JsonIgnoreProperties("users")
     private TypeUsers typeUsers;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "login_id")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JsonIgnoreProperties("users")
-    private Auth login;
+    private List<Auth> login;
 
 
 }

@@ -29,9 +29,8 @@ public class TypeVehicleServiceImpl implements TypeVehiclesService {
                     .build();
             return typeVehicleRepository.save(typeVehiclesEntity);
         } catch (DataIntegrityViolationException ex) {
-            throw new RuntimeException("Category  type already exists");
+            throw new RuntimeException("Category  name already exists");
         } catch (Exception e) {
-            e.printStackTrace();
             throw new RuntimeException("Error to save Type Vehicles");
         }
     }
@@ -54,12 +53,7 @@ public class TypeVehicleServiceImpl implements TypeVehiclesService {
                         typeVehiclesEntity.setDescription(typeVehicles.description());
                         updated = true;
                     }
-                    if (typeVehicles.statusId() != null && !typeVehicles.statusId().equals(
-                            typeVehiclesEntity.getState().getId())) {
-                        typeVehiclesEntity.setState(
-                                statusService.getStatus(typeVehicles.statusId()));
-                        updated = true;
-                    }
+                   
                     if (updated) {
                         typeVehicleRepository.save(typeVehiclesEntity);
                     }
