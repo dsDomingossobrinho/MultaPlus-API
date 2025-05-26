@@ -1,7 +1,7 @@
 package ao.multaplus.payment.service;
 import ao.multaplus.fine.entity.Fines;
 import ao.multaplus.fine.repository.FineRepository;
-import ao.multaplus.fineInfringement.service.FineInfrigmentServiceImpl;
+import ao.multaplus.fineInfringement.Service.FineInfrigmentServiceImpl;
 import ao.multaplus.fineInfringement.entity.FineInfringements;
 import ao.multaplus.payment.dtos.RequestPayment;
 import ao.multaplus.payment.entity.Payments;
@@ -46,7 +46,7 @@ public class PaymentServiceImpl implements PaymentService {
        }
         float totalPrice=0;
         for (FineInfringements fineInfringements1:fineInfringements){
-            totalPrice += fineInfringements1.getInfringement().getTypeInfringements().getPrice();
+            totalPrice += fineInfringements1.getInfringement().getPrice();
         }
         StatusPayment statusPayment=statusPaymentRepository.findById(1);
 
