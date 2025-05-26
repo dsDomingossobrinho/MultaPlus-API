@@ -11,11 +11,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+
 
 @Entity
-@Getter
-@Setter
-@Builder
+@EqualsAndHashCode(callSuper = true)
+@Data
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 public class MotoristVehicles extends AbstractModel {
