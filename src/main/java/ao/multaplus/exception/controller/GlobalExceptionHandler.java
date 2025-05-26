@@ -27,6 +27,14 @@ public class GlobalExceptionHandler {
                         "Internal Server Error", ex.getMessage(),
                         request.getRequestURI()));
     }
+    @ExceptionHandler(SecurityException.class)
+    public ResponseEntity<?> securityException(SecurityException ex) {
+        log.error(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                new ErrorResponseDTO(HttpStatus.UNAUTHORIZED.value(),
+                        "Não autorizado", ex.getMessage(),
+                        request.getRequestURI()));
+    }
     @ExceptionHandler(ResourceInConflictException.class)
     public ResponseEntity<?> resourceInConflictExceptionHandler(ResourceInConflictException ex) {
         log.error(ex.getMessage());
