@@ -22,11 +22,11 @@ import java.util.List;
 @RestController
 @SecurityRequirement(name= SecurityConfigurations.SECURITY)
 @RequestMapping("/api/province")
-@SuppressWarnings("unused")
 @RequiredArgsConstructor
 @Tag(name = "Provinces", description = "Manege Provinces")
+
 public class ProvinceController {
-    @Autowired
+
     private final ProvincesService provincesService;
     @Operation(summary = "Get all provinces", description = "Get a list of Provinces")
     @ApiResponse(responseCode = "200", description = "List Return Sucessfuly")
