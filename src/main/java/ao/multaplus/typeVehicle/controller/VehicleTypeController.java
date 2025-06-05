@@ -1,9 +1,11 @@
 package ao.multaplus.typeVehicle.controller;
 
+import ao.multaplus.security.SecurityConfigurations;
 import ao.multaplus.typeVehicle.dtos.VehiclesTypeDto;
 import ao.multaplus.typeVehicle.entity.TypeVehicles;
 import ao.multaplus.typeVehicle.service.TypeVehicleServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import java.util.List;
 @RequestMapping("type-vehicle")
 @Tag(name = "Vehicle name", description = "Vehicle Type endpoints")
 @RequiredArgsConstructor
+@SecurityRequirement(name= SecurityConfigurations.SECURITY)
 public class VehicleTypeController {
     private final TypeVehicleServiceImpl typeVehicleService;
 

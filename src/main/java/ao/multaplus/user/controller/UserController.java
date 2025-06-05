@@ -1,9 +1,11 @@
 package ao.multaplus.user.controller;
 
+import ao.multaplus.security.SecurityConfigurations;
 import ao.multaplus.user.dtos.UserDto;
 import ao.multaplus.user.entity.Users;
 import ao.multaplus.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController("/user")
 @Tag(name = "User", description = "User Endpoints")
 @RequiredArgsConstructor
+@SecurityRequirement(name= SecurityConfigurations.SECURITY)
 public class UserController {
 
     private final UserService userService;

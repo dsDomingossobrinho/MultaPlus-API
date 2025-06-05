@@ -3,7 +3,9 @@ package ao.multaplus.motorist.controller;
 import ao.multaplus.motorist.dtos.MotoristDto;
 import ao.multaplus.motorist.entity.Motorists;
 import ao.multaplus.motorist.service.MotoristServiceImpl;
+import ao.multaplus.security.SecurityConfigurations;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import java.util.Optional;
 @RequestMapping("/motorist")
 @Tag(name = "Motorist", description = "Motorist endpoints")
 @RequiredArgsConstructor
+@SecurityRequirement(name= SecurityConfigurations.SECURITY)
 public class MotoristController {
     private final MotoristServiceImpl motoristService;
 

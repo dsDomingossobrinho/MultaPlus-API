@@ -4,9 +4,11 @@ import ao.multaplus.province.dtos.ProviceUpdateDto;
 import ao.multaplus.province.dtos.ProvinceDto;
 import ao.multaplus.province.response.ProvinceResponse;
 import ao.multaplus.province.service.ProvincesService;
+import ao.multaplus.security.SecurityConfigurations;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@SecurityRequirement(name= SecurityConfigurations.SECURITY)
 @RequestMapping("/api/province")
 @SuppressWarnings("unused")
 @RequiredArgsConstructor

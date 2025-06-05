@@ -1,9 +1,11 @@
 package ao.multaplus.vehicle.controller;
 
+import ao.multaplus.security.SecurityConfigurations;
 import ao.multaplus.vehicle.dtos.RegisteVehicleDto;
 import ao.multaplus.vehicle.entity.Vehicles;
 import ao.multaplus.vehicle.service.VehicleServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/vehicle")
 @Tag(name = "Vehicle", description = "Vehicle endpoints")
 @RequiredArgsConstructor
+@SecurityRequirement(name= SecurityConfigurations.SECURITY)
 public class VehicleController {
     private final VehicleServiceImpl vehicleService;
 

@@ -2,15 +2,18 @@ package ao.multaplus.payment.controller;
 
 import ao.multaplus.payment.dtos.RequestPayment;
 import ao.multaplus.payment.service.PaymentServiceImpl;
+import ao.multaplus.security.SecurityConfigurations;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/payment")
+@SecurityRequirement(name= SecurityConfigurations.SECURITY)
 public class PaymentController {
     private final PaymentServiceImpl paymentService;
     public PaymentController(PaymentServiceImpl paymentService) {
