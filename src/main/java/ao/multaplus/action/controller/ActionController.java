@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/action")
 @RequiredArgsConstructor
+@SecurityRequirement(name= SecurityConfigurations.SECURITY)
 public class ActionController {
 
     private final ActionService actionService;
