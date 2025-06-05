@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/type-infrigiments")
-@Tag(name = "Type Infrigiments", description = "Manage types Infringement")
-public class TypeInfrigimentsController {
+@RequestMapping("/type-infringements")
+@Tag(name = "Type Infringements", description = "Manage types Infringement")
+@SecurityRequirement(name= SecurityConfigurations.SECURITY)
+public class TypeInfringementsController {
 
     private final InfringementService service;
 
