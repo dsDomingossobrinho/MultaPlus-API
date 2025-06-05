@@ -2,9 +2,11 @@ package ao.multaplus.action.controller;
 
 import ao.multaplus.action.dto.ActionRequestDto;
 import ao.multaplus.action.service.ActionService;
+import ao.multaplus.security.SecurityConfigurations;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
