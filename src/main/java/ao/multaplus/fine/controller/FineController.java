@@ -23,8 +23,8 @@ public class FineController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createMotorist(@RequestBody AddFineDto fineDetails) {
-        fineService.AddFine(fineDetails);
+    public ResponseEntity<FineResponseDto> createMotorist(@RequestBody AddFineDto fineDetails) {
+      return ResponseEntity.ofNullable(  fineService.AddFine(fineDetails));
     }
 
     @GetMapping("/{identifier}")
