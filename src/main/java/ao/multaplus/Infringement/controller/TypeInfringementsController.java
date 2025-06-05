@@ -3,9 +3,11 @@ package ao.multaplus.Infringement.controller;
 import ao.multaplus.Infringement.dtos.InfringementsUpdateDto;
 import ao.multaplus.Infringement.response.TypeInfringementsResponse;
 import ao.multaplus.Infringement.service.InfringementService;
+import ao.multaplus.security.SecurityConfigurations;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -22,7 +24,7 @@ public class TypeInfringementsController {
 
     private final InfringementService service;
 
-    public TypeInfrigimentsController(InfringementService service) {
+    public TypeInfringementsController(InfringementService service) {
         this.service = service;
     }
 
