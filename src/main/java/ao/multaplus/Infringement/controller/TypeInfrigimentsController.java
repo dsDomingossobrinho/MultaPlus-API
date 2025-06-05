@@ -20,11 +20,11 @@ import java.util.List;
 @RequestMapping("/type-infringements")
 @Tag(name = "Type Infringements", description = "Manage types Infringement")
 @SecurityRequirement(name= SecurityConfigurations.SECURITY)
-public class TypeInfringementsController {
+public class TypeInfrigimentsController {
 
     private final InfringementService service;
 
-    public TypeInfringementsController(InfringementService service) {
+    public TypeInfrigimentsController(InfringementService service) {
         this.service = service;
     }
 

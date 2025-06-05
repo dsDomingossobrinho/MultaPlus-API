@@ -11,6 +11,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +36,8 @@ public class Fines extends AbstractModel {
     @ManyToOne
     @JoinColumn(name = "state_id")
     private Status state;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
     private List<Infringements> infringements;
     private Integer daysTOPay;
     @OneToMany

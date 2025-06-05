@@ -1,7 +1,10 @@
 package ao.multaplus.fine.service;
 
+import ao.multaplus.Infringement.dtos.InfrigementNameAndAIDto;
 import ao.multaplus.Infringement.dtos.TypeInfringementsDto;
 import ao.multaplus.Infringement.entity.Infringements;
+import ao.multaplus.Infringement.service.InfringementService;
+import ao.multaplus.Infringement.service.InfringementServiceImpl;
 import ao.multaplus.auth.service.AuthServiceImpl;
 import ao.multaplus.exception.model.ResourceNotFound;
 import ao.multaplus.fine.dtos.*;
@@ -9,6 +12,7 @@ import ao.multaplus.fine.entity.Fines;
 import ao.multaplus.fine.repository.FineRepository;
 import ao.multaplus.motorist.entity.Motorists;
 import ao.multaplus.motorist.service.MotoristServiceImpl;
+import ao.multaplus.payment.service.PaymentServiceImpl;
 import ao.multaplus.typeVehicle.dtos.VehiclesTypeDto;
 import ao.multaplus.vehicle.dtos.VehicleResponseDto;
 import ao.multaplus.vehicle.entity.Vehicles;
@@ -20,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Service
@@ -28,9 +33,12 @@ public class FineServiceImpl implements FineService {
     private final MotoristServiceImpl motoristService;
     private final VehicleServiceImpl vehicleService;
     private final AuthServiceImpl authService;
+    private final PaymentServiceImpl paymentService;
+    private final InfringementServiceImpl infringementServiceImpl;
+    private final InfringementService infringementService;
 
     @Override
-    public void AddFine(AddFineDto fine) {
+    public FineResponseDto AddFine(AddFineDto fine) {
         Motorists motorists = motoristService.getMotorist(fine.motoristIdentifier());
         Fines.FinesBuilder<?, ?> fines = Fines.builder()
                 .infringements(toInfringements(fine))
@@ -40,8 +48,22 @@ public class FineServiceImpl implements FineService {
                 .users(authService.currentUser());
         if (fine.vehicleDetails() != null)
             fines.vehicles(vehicleService.GetOrRegistVehicle(fine.vehicleDetails()));
-        // set the user who created the fine.
-        fineRepository.save(fines.build());
+
+        Fines finesSaved = fineRepository.save(fines.build());
+
+        return new FineResponseDto(
+                finesSaved.getId(),
+                finesSaved.getDescription(),
+                finesSaved.getCreatedAt(),
+                finesSaved.getDaysTOPay(),
+                new NameAndIdDto(finesSaved.getMotorists().getId(),
+                        finesSaved.getMotorists().getName()),
+                new NameAndIdDto(finesSaved.getUsers().getId(),
+                        finesSaved.getUsers().getName()),
+                vehicleResponseDto(finesSaved.getVehicles()),
+                toInfreimentDto(finesSaved.getInfringements()),
+                paymentService.generatereference()
+        );
     }
 
     @Override
@@ -51,8 +73,8 @@ public class FineServiceImpl implements FineService {
 
     @Override
     public FineResponseDto getFineDetails(Long fineIdentifier) {
-        Fines fine = fineRepository.getFineDetails(fineIdentifier).orElseThrow(()-> new ResourceNotFound("fine with %d  Not found".formatted(fineIdentifier)));
-    System.out.println(fine);
+        Fines fine = fineRepository.getFineDetails(fineIdentifier).orElseThrow(
+                () -> new ResourceNotFound("fine with %d  Not found".formatted(fineIdentifier)));
         return new FineResponseDto(
                 fine.getId(),
                 fine.getDescription(),
@@ -61,10 +83,11 @@ public class FineServiceImpl implements FineService {
                 new NameAndIdDto(fine.getMotorists().getId(),
                         fine.getMotorists().getName()),
                 new NameAndIdDto(fine.getUsers().getId(),
-                fine.getUsers().getName()),
-               vehicleResponseDto( fine.getVehicles()),
-                toInfreimentDto(fine.getInfringements())
-        );
+                        fine.getUsers().getName()),
+                vehicleResponseDto(fine.getVehicles()),
+                toInfreimentDto(fine.getInfringements()),
+                paymentService.generatereference()
+                );
     }
 
     @Override
@@ -87,23 +110,29 @@ public class FineServiceImpl implements FineService {
     }
 
     private List<Infringements> toInfringements(AddFineDto fine) {
-        return fine.infringements().stream()
-                .map(infringement -> Infringements.builder()
-                        .id(infringement.InfringementId()).build()).collect(
-                        Collectors.toList());
-    }
-    private List<TypeInfringementsDto> toInfreimentDto(List<Infringements> infringements){
-        return infringements.stream().map(infringement-> new TypeInfringementsDto(infringement.getId(), infringement.getName(),
-                infringement.getDescription(), infringement.getPrice())).toList();
+        List<Long> infringementIds = fine.infringements()
+                .stream()
+                .map(InfrigementNameAndAIDto::InfringementId)
+                .toList();
+                return infringementServiceImpl.infringementsById(infringementIds);
     }
 
-    VehicleResponseDto vehicleResponseDto(Vehicles    vehicles){
-        VehicleResponseDto  response  = null;
-        if (vehicles!= null){
+
+    private List<TypeInfringementsDto> toInfreimentDto(
+            List<Infringements> infringements) {
+        return infringements.stream().map(
+                infringement -> new TypeInfringementsDto(infringement.getId(),
+                        infringement.getName(),
+                        infringement.getDescription(), infringement.getPrice())).toList();
+    }
+
+    VehicleResponseDto vehicleResponseDto(Vehicles vehicles) {
+        VehicleResponseDto response = null;
+        if (vehicles != null) {
             response = new VehicleResponseDto(vehicles.getPlateNumber(),
                     vehicles.getColor(), vehicles.getBrand(),
                     new VehiclesTypeDto(vehicles.getTypeVehicles().getType(),
-                            vehicles.getTypeVehicles().getDescription() ));
+                            vehicles.getTypeVehicles().getDescription()));
         }
         return response;
     }

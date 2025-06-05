@@ -77,7 +77,6 @@ public class UserServiceImpl implements UserService {
         for (int i = 0; i < users.length; i++) {
             String name = users[i][0];
             String email = users[i][1];
-
             if (authRepository.findByEmail(email) == null) {
                 UserDto userDto = new UserDto(name,
                         LocalDate.of(1990, (i % 12) + 1, (i % 28) + 1),

@@ -6,7 +6,7 @@ import ao.multaplus.fine.dtos.FineResponseDto;
 import ao.multaplus.fine.dtos.PageDto;
 
 public interface FineService {
-    void AddFine(AddFineDto fine);
+    FineResponseDto AddFine(AddFineDto fine);
     void UpdateFine(AddFineDto fine);
     FineResponseDto getFineDetails(Long fineIdentifier);
     void DeleteFine(Long id);

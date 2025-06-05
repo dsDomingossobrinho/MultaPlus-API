@@ -24,6 +24,7 @@ public class PaymentServiceImpl implements PaymentService {
     private final FineRepository fineRepository;
     private final FineInfrigmentServiceImpl fineInfrigmentService;
     private final StatusPaymentRepository statusPaymentRepository;
+
     public PaymentServiceImpl(PaymentRepository paymentRepository,@Lazy PaymentServiceImpl paymentService, FineRepository fineRepository, FineInfrigmentServiceImpl fineInfrigmentService, StatusPaymentRepository statusPaymentRepository) {
         this.paymentRepository = paymentRepository;
         this.paymentService = paymentService;
@@ -120,7 +121,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     }
 
-    private String generatereference(){
+    public String generatereference(){
         final String CARACTERES = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         final int TAMANHO_CODIGO = 6;
 

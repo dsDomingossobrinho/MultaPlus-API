@@ -17,6 +17,7 @@ public record FineResponseDto(
         NameAndIdDto motorist,
         NameAndIdDto agent,
         VehicleResponseDto vehicle,
-        List<TypeInfringementsDto> infringements
+        List<TypeInfringementsDto> infringements,
+        String paymentReference
 ) {
 }
