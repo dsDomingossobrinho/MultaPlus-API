@@ -22,7 +22,9 @@ public interface FineRepository extends JpaRepository<Fines, Long> {
     Page<FineResponse> GetFines(@Param("identifier") String identifier, Pageable pageable
     );
 
-
+    @Query("SELECT new ao.multaplus.fine.dtos.FineResponse(f.id, f.description,f" + ".createdAt) " + "FROM " + "Fines f  ")
+    Page<FineResponse> GetFines(  Pageable pageable
+    );
 
      @Query("""
         SELECT f FROM Fines f
@@ -34,4 +36,13 @@ public interface FineRepository extends JpaRepository<Fines, Long> {
     """)
     Optional<Fines> getFineDetails(@Param("fineIdentifier") Long fineIdentifier);
 
+
+    @Query("""
+        SELECT f FROM Fines f
+        LEFT JOIN FETCH f.motorists m
+        LEFT JOIN FETCH f.users u
+        LEFT JOIN FETCH f.vehicles v
+        LEFT JOIN FETCH f.infringements i
+    """)
+    Page<Fines> getFines(Pageable pageable);
 }
