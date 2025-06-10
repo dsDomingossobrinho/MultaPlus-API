@@ -4,6 +4,7 @@ import ao.multaplus.fine.dtos.AddFineDto;
 import ao.multaplus.fine.dtos.FineResponse;
 import ao.multaplus.fine.dtos.FineResponseDto;
 import ao.multaplus.fine.dtos.PageDto;
+import ao.multaplus.fine.entity.Fines;
 import ao.multaplus.fine.service.FineServiceImpl;
 import ao.multaplus.security.SecurityConfigurations;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -26,7 +27,12 @@ public class FineController {
     public ResponseEntity<FineResponseDto> createMotorist(@RequestBody AddFineDto fineDetails) {
       return ResponseEntity.ofNullable(  fineService.AddFine(fineDetails));
     }
-
+    @GetMapping()
+    public ResponseEntity<PageDto<Fines>> getFines(
+                                                          @RequestParam(required = false, defaultValue = "0") int pageNumber,
+                                                          @RequestParam(required = false, defaultValue = "10") int pageSize) {
+        return ResponseEntity.ok(fineService.getFines(pageNumber, pageSize));
+    }
     @GetMapping("/{identifier}")
     public ResponseEntity<PageDto<FineResponse>> getFines(@PathVariable String identifier,
                                                           @RequestParam(required = false, defaultValue = "0") int pageNumber,

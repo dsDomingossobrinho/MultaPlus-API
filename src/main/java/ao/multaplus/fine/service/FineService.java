@@ -4,6 +4,7 @@ import ao.multaplus.fine.dtos.AddFineDto;
 import ao.multaplus.fine.dtos.FineResponse;
 import ao.multaplus.fine.dtos.FineResponseDto;
 import ao.multaplus.fine.dtos.PageDto;
+import ao.multaplus.fine.entity.Fines;
 
 public interface FineService {
     FineResponseDto AddFine(AddFineDto fine);
@@ -11,5 +12,5 @@ public interface FineService {
     FineResponseDto getFineDetails(Long fineIdentifier);
     void DeleteFine(Long id);
     PageDto<FineResponse> getFines(String vehiclePlante, int pageNumber, int pageSize);
-
+    PageDto<Fines> getFines(int pageNumber, int pageSize);
 }

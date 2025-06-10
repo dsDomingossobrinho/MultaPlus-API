@@ -23,8 +23,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Service
@@ -61,7 +59,7 @@ public class FineServiceImpl implements FineService {
                 new NameAndIdDto(finesSaved.getUsers().getId(),
                         finesSaved.getUsers().getName()),
                 vehicleResponseDto(finesSaved.getVehicles()),
-                toInfreimentDto(finesSaved.getInfringements()),
+                toInfringementDto(finesSaved.getInfringements()),
                 paymentService.generatereference()
         );
     }
@@ -85,7 +83,7 @@ public class FineServiceImpl implements FineService {
                 new NameAndIdDto(fine.getUsers().getId(),
                         fine.getUsers().getName()),
                 vehicleResponseDto(fine.getVehicles()),
-                toInfreimentDto(fine.getInfringements()),
+                toInfringementDto(fine.getInfringements()),
                 paymentService.generatereference()
                 );
     }
@@ -109,6 +107,18 @@ public class FineServiceImpl implements FineService {
                 fines.isFirst(), fines.hasNext(), fines.hasPrevious());
     }
 
+    @Override
+    public PageDto<Fines> getFines(int pageNumber,
+                                   int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize);
+        Page<Fines> fines = fineRepository.getFines(pageRequest);
+        return new PageDto<>(fines.getContent(),
+                fines.getNumber(),
+                fines.getSize(),
+                fines.getTotalPages(),
+                fines.getTotalPages(), fines.getSort().toString(), fines.isLast(),
+                fines.isFirst(), fines.hasNext(), fines.hasPrevious());
+    }
     private List<Infringements> toInfringements(AddFineDto fine) {
         List<Long> infringementIds = fine.infringements()
                 .stream()
@@ -118,7 +128,7 @@ public class FineServiceImpl implements FineService {
     }
 
 
-    private List<TypeInfringementsDto> toInfreimentDto(
+    private List<TypeInfringementsDto> toInfringementDto(
             List<Infringements> infringements) {
         return infringements.stream().map(
                 infringement -> new TypeInfringementsDto(infringement.getId(),
